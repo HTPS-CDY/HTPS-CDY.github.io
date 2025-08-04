@@ -7,6 +7,7 @@
         .container {
             text-align: center;
             margin-top: 10px;
+            font-family: Arial, sans-serif;
         }
         .centered-image {
             width: 300px;
@@ -17,45 +18,87 @@
         .content {
             margin: 0 auto;
             max-width: 800px;
+            text-align: left;
         }
-        a {
+        .resource-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .resource-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px dashed #eee;
+        }
+        .resource-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .resource-link {
             color: #0066cc;
             text-decoration: none;
+            word-break: break-all;
         }
-        a:hover {
+        .resource-link:hover {
             text-decoration: underline;
+        }
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="retouch_2025080304373063.png" alt="居中图片" class="centered-image">
+        <img src="retouch_2025080304373063.png" alt="网站Logo" class="centered-image">
         <div class="content">
             <h1>HTPS and JBPS 资源分享</h1>
-            <h2>开发者:HTPS--C.D.Y</h2>
+            <h2>开发者: HTPS--C.D.Y</h2>
             <h3>使用GitHub静态部署</h3>
-            <h3>--------------------------------------------------------</h3>
-            <h3>本站上所有资源均为免费提供，请勿用于商业用途</h3>
-            <h3>本站上所有分享均为他站搬运，如有侵权，私信联系删除</h3>
-            <h4>2025.8.5-1:40 am</h4>
-            <h3>--------------------------------------------------------</h3>
-            <h4>PCL下载处（分享）</h4>
-            <h6><a href="https://www.123912.com/s/LLB2Td-WGkg3" target="_blank">https://www.123912.com/s/LLB2Td-WGkg3</a></h6>
-            <h4>PCL下载处（官方）</h4>
-            <h6><a href="https://bbsmc.net/software/pcl" target="_blank">https://bbsmc.net/software/pcl</a></h6>
-            <h3>--------------------------------------------------------</h3>
-            <h4>FCL下载处（分享）</h4>
-            <h6><a href="https://www.123912.com/s/LLB2Td-CGkg3" target="_blank">https://www.123912.com/s/LLB2Td-CGkg3</a></h6>
-            <h4>FCL下载处（官方）</h4>
-            <h6><a href="https://foldcraftlauncher.cn/?tab=1" target="_blank">https://foldcraftlauncher.cn/?tab=1</a></h6>
-            <h3>--------------------------------------------------------</h3>
-            <h4>yanderesimulator下载处（官方）</h4>
-            <h6><a href="https://yanderesimulator.com/download/" target="_blank">https://yanderesimulator.com/download/</a></h6>
-            <h4>yanderesimulator posemod（分享）</h4>
-            <h6><a href="https://www.123912.com/s/LLB2Td-NGkg3" target="_blank">https://www.123912.com/s/LLB2Td-NGkg3</a></h6>
-            <h4>爱之恸汉化包（分享）</h4>
-            <h6><a href="https://www.123912.com/s/LLB2Td-OGkg3" target="_blank">https://www.123912.com/s/LLB2Td-OGkg3</a></h6>
-            <h3>--------------------------------------------------------</h3>
+            
+            <div class="divider"></div>
+            
+            <h3>本站声明</h3>
+            <ul class="resource-list">
+                <li>本站上所有资源均为免费提供，请勿用于商业用途</li>
+                <li>本站上所有分享均为他站搬运，如有侵权，私信联系删除</li>
+                <li>最后更新: 2025.8.5-1:40 am</li>
+            </ul>
+            
+            <div class="divider"></div>
+            
+            <h3>资源列表</h3>
+            <ul class="resource-list">
+                <li class="resource-item">
+                    <div class="resource-title">PCL下载（分享）</div>
+                    <a href="https://www.123912.com/s/LLB2Td-WGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-WGkg3</a>
+                </li>
+                <li class="resource-item">
+                    <div class="resource-title">PCL下载（官方）</div>
+                    <a href="https://bbsmc.net/software/pcl" class="resource-link" target="_blank">https://bbsmc.net/software/pcl</a>
+                </li>
+                <li class="resource-item">
+                    <div class="resource-title">FCL下载（分享）</div>
+                    <a href="https://www.123912.com/s/LLB2Td-CGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-CGkg3</a>
+                </li>
+                <li class="resource-item">
+                    <div class="resource-title">FCL下载（官方）</div>
+                    <a href="https://foldcraftlauncher.cn/?tab=1" class="resource-link" target="_blank">https://foldcraftlauncher.cn/?tab=1</a>
+                </li>
+                <li class="resource-item">
+                    <div class="resource-title">yanderesimulator下载（官方）</div>
+                    <a href="https://yanderesimulator.com/download/" class="resource-link" target="_blank">https://yanderesimulator.com/download/</a>
+                </li>
+                <li class="resource-item">
+                    <div class="resource-title">yanderesimulator posemod（分享）</div>
+                    <a href="https://www.123912.com/s/LLB2Td-NGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-NGkg3</a>
+                </li>
+                <li class="resource-item">
+                    <div class="resource-title">爱之恸汉化包（分享）</div>
+                    <a href="https://www.123912.com/s/LLB2Td-OGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-OGkg3</a>
+                </li>
+            </ul>
+            
+            <div class="divider"></div>
         </div>
     </div>
 </body>
