@@ -6,169 +6,305 @@
     <title>HTPS and JBPS</title>
     <link rel="icon" href="Perk.ico" type="image/x-icon">
     <style>
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
+            background-color: #1a1a2e;
+            color: #333;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
-            transition: background-image 0.5s ease;
+            z-index: -1;
+            transition: opacity 0.8s ease;
         }
+        
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 20, 0.7);
             z-index: -1;
         }
+        
         .container {
-            text-align: center;
-            margin-top: 10px;
-            padding: 0 15px;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-container {
+            margin: 0 auto 20px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+        
         .centered-image {
-            max-width: 300px;
-            width: 80%;
+            max-width: 100%;
             height: auto;
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            background-color: white;
-            padding: 5px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 50%;
+            border: 3px solid white;
         }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin: 10px 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        h2 {
+            font-size: 1.6rem;
+            color: #e0e0ff;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: #f8f9fa;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+        }
+        
         .content {
-            margin: 0 auto;
-            max-width: 800px;
-            text-align: left;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(25, 25, 35, 0.85);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
+        
         .resource-list {
             list-style-type: none;
-            padding: 0;
         }
+        
         .resource-item {
-            margin-bottom: 15px;
-            padding: 15px;
-            border-bottom: 1px dashed #eee;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 18px;
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
         }
+        
         .resource-item:hover {
-            background-color: rgba(245, 248, 255, 0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
         }
+        
+        .resource-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+        }
+        
         .resource-title {
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #1a3a6c;
-            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #f8f9fa;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
         }
+        
+        .resource-title::before {
+            content: '🔗';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
         .resource-link {
-            color: #0066cc;
+            color: #64b5f6;
             text-decoration: none;
             word-break: break-all;
-            display: inline-block;
-            padding: 5px 8px;
-            border-radius: 4px;
+            display: block;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 181, 246, 0.3);
         }
+        
         .resource-link:hover {
+            color: #bb86fc;
+            background: rgba(0, 0, 0, 0.4);
             text-decoration: underline;
-            background-color: rgba(0, 102, 204, 0.1);
+            border-color: rgba(187, 134, 252, 0.5);
         }
+        
         .divider {
-            margin: 25px 0;
-            border-top: 1px solid #ddd;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            margin: 30px 0;
         }
-        .anniversary {
-            color: red;
-            text-align: center;
-            margin: 20px 0;
-            font-weight: bold;
-            font-size: 1.2em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
+        
         .date-display {
             text-align: center;
-            margin: 25px 0 15px;
-            color: #555;
-            font-size: 0.9em;
-            font-weight: bold;
-            background-color: rgba(255, 255, 255, 0.7);
-            padding: 8px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-left: 50%;
-            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
         .footer {
             text-align: center;
-            padding: 20px 0;
-            color: #666;
-            font-size: 0.85em;
-            margin-top: 30px;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-top: 1px solid #eee;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            font-size: 0.9rem;
         }
-
-        /* 移动端优化 */
+        
+        .anniversary {
+            color: #ffcc00;
+            text-align: center;
+            margin: 25px 0;
+            font-weight: 600;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        /* 动画效果 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 204, 0, 0.8); }
+            100% { opacity: 0.8; }
+        }
+        
+        /* 响应式设计 */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 1.6em;
+            .container {
+                padding: 0 15px;
+                margin: 15px auto;
             }
-            h2 {
-                font-size: 1.3em;
-            }
-            h3 {
-                font-size: 1.1em;
-            }
-            .resource-item {
-                padding: 12px;
-            }
-            .anniversary {
-                font-size: 1.1em;
-                margin: 15px 0;
-            }
-            .content {
+            
+            .header {
                 padding: 15px;
+            }
+            
+            .logo-container {
+                width: 180px;
+                height: 180px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .content {
+                padding: 20px;
             }
         }
         
         @media (max-width: 480px) {
+            .logo-container {
+                width: 150px;
+                height: 150px;
+            }
+            
             h1 {
-                font-size: 1.4em;
+                font-size: 1.7rem;
             }
-            .centered-image {
-                max-width: 250px;
+            
+            h2 {
+                font-size: 1.2rem;
             }
+            
+            h3 {
+                font-size: 1.1rem;
+            }
+            
+            .resource-item {
+                padding: 15px;
+            }
+            
             .resource-title {
-                font-size: 1em;
+                font-size: 1rem;
             }
-            .date-display {
-                font-size: 0.8em;
-                padding: 6px 12px;
-            }
-        }
-        
-        /* 动画效果 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .container {
-            animation: fadeIn 0.8s ease-out;
         }
     </style>
 </head>
@@ -176,19 +312,27 @@
     <div class="overlay"></div>
     
     <div class="container">
-        <img src="retouch_2025080304373063.png" alt="网站Logo" class="centered-image">
-        <div class="content">
+        <div class="header">
+            <div class="logo-container">
+                <img src="retouch_2025080304373063.png" alt="网站Logo" class="centered-image">
+            </div>
             <h1>HTPS and JBPS 资源分享</h1>
             <h2>开发者: HTPS--C.D.Y</h2>
             <h3>使用GitHub\Netlify静态部署</h3>
-            
-            <div class="divider"></div>
-            
+        </div>
+        
+        <div class="content">
             <h3>本站声明</h3>
             <ul class="resource-list">
-                <li>本站上所有资源均为免费提供，请勿用于商业用途</li>
-                <li>本站上所有分享均为他站搬运，如有侵权，私信联系删除</li>
-                <li>最后更新: 2025.8.8-6:00 am</li>
+                <li class="resource-item">
+                    <div class="resource-title">本站上所有资源均为免费提供，请勿用于商业用途</div>
+                </li>
+                <li class="resource-item">
+                    <div class="resource-title">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
+                </li>
+                <li class="resource-item">
+                    <div class="resource-title">最后更新: 2025.8.7-4:45 am</div>
+                </li>
             </ul>
             
             <div class="divider"></div>
@@ -226,13 +370,13 @@
             </ul>
             
             <div class="divider"></div>
+            
+            <div class="date-display" id="dateDisplay"></div>
         </div>
         
-        <div class="date-display" id="dateDisplay"></div>
-    </div>
-    
-    <div class="footer">
-        HTPS &copy; 2025 | 资源免费分享平台
+        <div class="footer">
+            HTPS &copy; 2025 | 资源免费分享平台
+        </div>
     </div>
 
     <script>
@@ -249,7 +393,7 @@
             const dateDisplay = document.getElementById('dateDisplay');
             dateDisplay.textContent = `当前时间: ${year}.${month}.${date}-${hours}:${minutes}`;
             
-            // 定义特殊日期范围
+            // 定义特殊日期范围（国家重大事件纪念日）
             const specialRanges = [
                 // 格式: [开始月份, 开始日期, 结束月份, 结束日期]
                 [8, 6, 8, 7],   // 8.6-0:00 ~ 8.7-0:00
@@ -267,9 +411,8 @@
                 const [startMonth, startDate, endMonth, endDate] = range;
                 
                 // 当前日期在特殊范围内（简化判断，不考虑年份变化）
-                if ((month === startMonth && date >= startDate) || 
-                    (month > startMonth && month < endMonth) || 
-                    (month === endMonth && date < endDate)) {
+                if ((month === startMonth && date === startDate) || 
+                    (month === endMonth && date === endDate - 1)) {
                     isSpecialDate = true;
                     break;
                 }
@@ -290,16 +433,17 @@
             }
             
             // 设置背景图片
+            document.body.style.setProperty('--bg-image', backgroundImage);
             document.body.style.backgroundImage = backgroundImage;
             
-            // 添加周年提示（示例：在8月1日-8月10日期间显示）
+            // 添加周年提示（在8月1日-8月10日期间显示）
             if (month === 8 && date >= 1 && date <= 10) {
                 const anniversaryDiv = document.createElement('div');
                 anniversaryDiv.className = 'anniversary';
                 anniversaryDiv.textContent = '🎉 HTPS 周年纪念活动进行中！';
                 
                 // 在标题之后插入
-                const container = document.querySelector('.container');
+                const container = document.querySelector('.content');
                 const firstDivider = document.querySelector('.divider');
                 container.insertBefore(anniversaryDiv, firstDivider);
             }
