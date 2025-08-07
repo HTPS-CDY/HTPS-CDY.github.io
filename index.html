@@ -58,33 +58,19 @@
             text-align: center;
             margin-bottom: 30px;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
-        .logo-container {
-            margin: 0 auto 20px;
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border: 5px solid rgba(255, 255, 255, 0.2);
-            animation: float 6s ease-in-out infinite;
-        }
-        
+        /* 保留原有图标样式 */
         .centered-image {
-            max-width: 100%;
+            max-width: 300px;
+            width: 80%;
             height: auto;
-            border-radius: 50%;
-            border: 3px solid white;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 5px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         
         h1 {
@@ -235,12 +221,6 @@
         }
         
         /* 动画效果 */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-        
         @keyframes pulse {
             0% { opacity: 0.8; }
             50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 204, 0, 0.8); }
@@ -258,9 +238,8 @@
                 padding: 15px;
             }
             
-            .logo-container {
-                width: 180px;
-                height: 180px;
+            .centered-image {
+                max-width: 250px;
             }
             
             h1 {
@@ -281,9 +260,8 @@
         }
         
         @media (max-width: 480px) {
-            .logo-container {
-                width: 150px;
-                height: 150px;
+            .centered-image {
+                max-width: 220px;
             }
             
             h1 {
@@ -313,9 +291,7 @@
     
     <div class="container">
         <div class="header">
-            <div class="logo-container">
-                <img src="retouch_2025080304373063.png" alt="网站Logo" class="centered-image">
-            </div>
+            <img src="retouch_2025080304373063.png" alt="网站Logo" class="centered-image">
             <h1>HTPS and JBPS 资源分享</h1>
             <h2>开发者: HTPS--C.D.Y</h2>
             <h3>使用GitHub\Netlify静态部署</h3>
@@ -331,7 +307,7 @@
                     <div class="resource-title">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
                 </li>
                 <li class="resource-item">
-                    <div class="resource-title">最后更新: 2025.8.8-6:10 am</div>
+                    <div class="resource-title">最后更新: 2025.8.8-6:30 am</div>
                 </li>
             </ul>
             
@@ -433,7 +409,6 @@
             }
             
             // 设置背景图片
-            document.body.style.setProperty('--bg-image', backgroundImage);
             document.body.style.backgroundImage = backgroundImage;
             
             // 添加周年提示（在8月1日-8月10日期间显示）
@@ -451,4 +426,3 @@
     </script>
 </body>
 </html>
-
