@@ -11,11 +11,27 @@
             padding: 0;
             font-family: Arial, sans-serif;
             line-height: 1.6;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            transition: background-image 0.5s ease;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.85);
+            z-index: -1;
         }
         .container {
             text-align: center;
             margin-top: 10px;
             padding: 0 15px;
+            position: relative;
+            z-index: 1;
         }
         .centered-image {
             max-width: 300px;
@@ -23,11 +39,19 @@
             height: auto;
             border: 1px solid #ddd;
             margin-bottom: 20px;
+            background-color: white;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .content {
             margin: 0 auto;
             max-width: 800px;
             text-align: left;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         .resource-list {
             list-style-type: none;
@@ -35,53 +59,122 @@
         }
         .resource-item {
             margin-bottom: 15px;
-            padding: 10px;
+            padding: 15px;
             border-bottom: 1px dashed #eee;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .resource-item:hover {
+            background-color: rgba(245, 248, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
         }
         .resource-title {
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            color: #1a3a6c;
+            font-size: 1.1em;
         }
         .resource-link {
             color: #0066cc;
             text-decoration: none;
             word-break: break-all;
+            display: inline-block;
+            padding: 5px 8px;
+            border-radius: 4px;
         }
         .resource-link:hover {
             text-decoration: underline;
+            background-color: rgba(0, 102, 204, 0.1);
         }
         .divider {
-            margin: 20px 0;
+            margin: 25px 0;
             border-top: 1px solid #ddd;
         }
         .anniversary {
             color: red;
             text-align: center;
             margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .date-display {
+            text-align: center;
+            margin: 25px 0 15px;
+            color: #555;
+            font-size: 0.9em;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 8px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid #eee;
         }
 
         /* 移动端优化 */
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             h1 {
-                font-size: 1.5em;
+                font-size: 1.6em;
             }
             h2 {
-                font-size: 1.2em;
+                font-size: 1.3em;
             }
             h3 {
                 font-size: 1.1em;
             }
             .resource-item {
-                padding: 8px 0;
+                padding: 12px;
             }
             .anniversary {
-                font-size: 1.2em;
+                font-size: 1.1em;
                 margin: 15px 0;
             }
+            .content {
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+            .centered-image {
+                max-width: 250px;
+            }
+            .resource-title {
+                font-size: 1em;
+            }
+            .date-display {
+                font-size: 0.8em;
+                padding: 6px 12px;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .container {
+            animation: fadeIn 0.8s ease-out;
         }
     </style>
 </head>
 <body>
+    <div class="overlay"></div>
+    
     <div class="container">
         <img src="retouch_2025080304373063.png" alt="网站Logo" class="centered-image">
         <div class="content">
@@ -95,7 +188,7 @@
             <ul class="resource-list">
                 <li>本站上所有资源均为免费提供，请勿用于商业用途</li>
                 <li>本站上所有分享均为他站搬运，如有侵权，私信联系删除</li>
-                <li>最后更新: 2025.8.7-4:45 am</li>
+                <li>最后更新: 2025.8.8-6:00 am</li>
             </ul>
             
             <div class="divider"></div>
@@ -134,9 +227,83 @@
             
             <div class="divider"></div>
         </div>
+        
+        <div class="date-display" id="dateDisplay"></div>
     </div>
+    
+    <div class="footer">
+        HTPS &copy; 2025 | 资源免费分享平台
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取当前日期和时间
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1; // 月份从0开始，所以要加1
+            const date = now.getDate();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            
+            // 在页面上显示日期和时间
+            const dateDisplay = document.getElementById('dateDisplay');
+            dateDisplay.textContent = `当前时间: ${year}.${month}.${date}-${hours}:${minutes}`;
+            
+            // 定义特殊日期范围
+            const specialRanges = [
+                // 格式: [开始月份, 开始日期, 结束月份, 结束日期]
+                [8, 6, 8, 7],   // 8.6-0:00 ~ 8.7-0:00
+                [8, 9, 8, 10],  // 8.9-0:00 ~ 8.10-0:00
+                [8, 1, 8, 2],   // 8.1-0:00 ~ 8.2-0:00
+                [7, 1, 7, 2],   // 7.1-0:00 ~ 7.2-0:00
+                [10, 1, 10, 2], // 10.1-0:00 ~ 10.2-0:00
+                [12, 13, 12, 14], // 12.13-0:00 ~ 12.14-0:00
+                [5, 1, 5, 2]    // 5.1-0:00 ~ 5.2-0:00
+            ];
+            
+            // 检查当前日期是否在特殊日期范围内
+            let isSpecialDate = false;
+            for (const range of specialRanges) {
+                const [startMonth, startDate, endMonth, endDate] = range;
+                
+                // 当前日期在特殊范围内（简化判断，不考虑年份变化）
+                if ((month === startMonth && date >= startDate) || 
+                    (month > startMonth && month < endMonth) || 
+                    (month === endMonth && date < endDate)) {
+                    isSpecialDate = true;
+                    break;
+                }
+            }
+            
+            // 选择背景图片
+            let backgroundImage;
+            if (isSpecialDate) {
+                // 特殊日期 - 从1,7,10中随机选择
+                const specialImages = [1, 7, 10];
+                const randomIndex = Math.floor(Math.random() * specialImages.length);
+                backgroundImage = `url('png/${specialImages[randomIndex]}.png')`;
+            } else {
+                // 普通日期 - 从2,3,4,5,6,8,9中随机选择
+                const normalImages = [2, 3, 4, 5, 6, 8, 9];
+                const randomIndex = Math.floor(Math.random() * normalImages.length);
+                backgroundImage = `url('png/${normalImages[randomIndex]}.png')`;
+            }
+            
+            // 设置背景图片
+            document.body.style.backgroundImage = backgroundImage;
+            
+            // 添加周年提示（示例：在8月1日-8月10日期间显示）
+            if (month === 8 && date >= 1 && date <= 10) {
+                const anniversaryDiv = document.createElement('div');
+                anniversaryDiv.className = 'anniversary';
+                anniversaryDiv.textContent = '🎉 HTPS 周年纪念活动进行中！';
+                
+                // 在标题之后插入
+                const container = document.querySelector('.container');
+                const firstDivider = document.querySelector('.divider');
+                container.insertBefore(anniversaryDiv, firstDivider);
+            }
+        });
+    </script>
 </body>
 </html>
-
-
-
