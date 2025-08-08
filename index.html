@@ -15,11 +15,11 @@
         body {
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
-            background-color: #1a1a2e;
             color: #333;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            background-color: #1a1a2e;
         }
         
         body::before {
@@ -60,17 +60,18 @@
             padding: 20px;
         }
         
-        /* 保留原有图标样式 */
+        /* 保留原始Logo样式 - 透明背景无边框 */
         .centered-image {
             max-width: 300px;
             width: 80%;
             height: auto;
-            border: 1px solid #ddd;
             margin-bottom: 20px;
-            background-color: white;
-            padding: 5px;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+            transition: transform 0.5s ease;
+        }
+        
+        .centered-image:hover {
+            transform: scale(1.05);
         }
         
         h1 {
@@ -81,6 +82,7 @@
             background: linear-gradient(to right, #ff7e5f, #feb47b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
         }
         
         h2 {
@@ -218,13 +220,17 @@
             font-size: 1.3rem;
             text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
             animation: pulse 2s infinite;
+            padding: 12px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 30px;
+            display: inline-block;
         }
         
         /* 动画效果 */
         @keyframes pulse {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 204, 0, 0.8); }
-            100% { opacity: 0.8; }
+            0% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 204, 0, 0.8); transform: scale(1.05); }
+            100% { opacity: 0.8; transform: scale(1); }
         }
         
         /* 响应式设计 */
@@ -291,7 +297,8 @@
     
     <div class="container">
         <div class="header">
-            <img src="retouch_2025080304373063.png" alt="网站Logo" class="centered-image">
+            <!-- 透明背景Logo -->
+            <img src="retouch_2025080304373063.png" alt="HTPS & JBPS Logo" class="centered-image">
             <h1>HTPS and JBPS 资源分享</h1>
             <h2>开发者: HTPS--C.D.Y</h2>
             <h3>使用GitHub\Netlify静态部署</h3>
@@ -307,7 +314,7 @@
                     <div class="resource-title">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
                 </li>
                 <li class="resource-item">
-                    <div class="resource-title">最后更新: 2025.8.8-6:30 am</div>
+                    <div class="resource-title">最后更新: 2025.8.7-4:45 am</div>
                 </li>
             </ul>
             
@@ -386,9 +393,9 @@
             for (const range of specialRanges) {
                 const [startMonth, startDate, endMonth, endDate] = range;
                 
-                // 当前日期在特殊范围内（简化判断，不考虑年份变化）
-                if ((month === startMonth && date === startDate) || 
-                    (month === endMonth && date === endDate - 1)) {
+                // 当前日期在特殊范围内
+                if (month === startMonth && date >= startDate && 
+                    month === endMonth && date < endDate) {
                     isSpecialDate = true;
                     break;
                 }
@@ -415,12 +422,11 @@
             if (month === 8 && date >= 1 && date <= 10) {
                 const anniversaryDiv = document.createElement('div');
                 anniversaryDiv.className = 'anniversary';
-                anniversaryDiv.textContent = '🎉 HTPS 周年纪念活动进行中！';
+                anniversaryDiv.textContent = '🎉 HTPS 第一个正式版（v0.1）！';
                 
                 // 在标题之后插入
-                const container = document.querySelector('.content');
-                const firstDivider = document.querySelector('.divider');
-                container.insertBefore(anniversaryDiv, firstDivider);
+                const header = document.querySelector('.header');
+                header.appendChild(anniversaryDiv);
             }
         });
     </script>
