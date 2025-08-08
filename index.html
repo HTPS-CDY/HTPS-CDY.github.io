@@ -20,20 +20,11 @@
             position: relative;
             overflow-x: hidden;
             background-color: #1a1a2e;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            z-index: -1;
-            transition: opacity 0.8s ease;
+            background-attachment: fixed; /* 固定背景 */
         }
         
         .overlay {
@@ -226,6 +217,50 @@
             display: inline-block;
         }
         
+        /* 搜索框样式 */
+        .search-container {
+            max-width: 600px;
+            margin: 20px auto 30px;
+            position: relative;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: none;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding-left: 50px;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 126, 95, 0.5);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+        }
+        
+        .no-results {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            font-size: 1.1rem;
+            display: none;
+        }
+        
         /* 动画效果 */
         @keyframes pulse {
             0% { opacity: 0.8; transform: scale(1); }
@@ -263,6 +298,16 @@
             .content {
                 padding: 20px;
             }
+            
+            .search-box {
+                padding: 12px 15px;
+                padding-left: 45px;
+                font-size: 1rem;
+            }
+            
+            .search-icon {
+                left: 15px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -289,6 +334,12 @@
             .resource-title {
                 font-size: 1rem;
             }
+            
+            .search-box {
+                padding: 10px 12px;
+                padding-left: 40px;
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
@@ -302,6 +353,12 @@
             <h1>HTPS 资源分享站</h1>
             <h2>开发者: HTPS--C.D.Y</h2>
             <h3>使用GitHub\Netlify静态部署</h3>
+        </div>
+        
+        <!-- 搜索框 -->
+        <div class="search-container">
+            <div class="search-icon">🔍</div>
+            <input type="text" id="searchInput" class="search-box" placeholder="输入关键词搜索资源...">
         </div>
         
         <div class="content">
@@ -321,7 +378,8 @@
             <div class="divider"></div>
             
             <h3>资源列表</h3>
-            <ul class="resource-list">
+            <div class="no-results" id="noResults">没有找到匹配的资源</div>
+            <ul class="resource-list" id="resourcesList">
                 <li class="resource-item">
                     <div class="resource-title">PCL下载（分享）</div>
                     <a href="https://www.123912.com/s/LLB2Td-WGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-WGkg3</a>
@@ -421,23 +479,6 @@
                 }
             }
             
-            // 选择背景图片
-            let backgroundImage;
-            if (isSpecialDate) {
-                // 特殊日期 - 从1,7,10中随机选择
-                const specialImages = [1, 7, 10];
-                const randomIndex = Math.floor(Math.random() * specialImages.length);
-                backgroundImage = `url('png/${specialImages[randomIndex]}.png')`;
-            } else {
-                // 普通日期 - 从2,3,4,5,6,8,9中随机选择
-                const normalImages = [2, 3, 4, 5, 6, 8, 9];
-                const randomIndex = Math.floor(Math.random() * normalImages.length);
-                backgroundImage = `url('png/${normalImages[randomIndex]}.png')`;
-            }
-            
-            // 设置背景图片
-            document.body.style.backgroundImage = backgroundImage;
-            
             // 添加周年提示（在8月1日-8月10日期间显示）
             if (month === 8 && date >= 1 && date <= 10) {
                 const anniversaryDiv = document.createElement('div');
@@ -448,11 +489,36 @@
                 const header = document.querySelector('.header');
                 header.appendChild(anniversaryDiv);
             }
+            
+            // 搜索功能实现
+            const searchInput = document.getElementById('searchInput');
+            const resourcesList = document.getElementById('resourcesList');
+            const resourceItems = resourcesList.querySelectorAll('.resource-item');
+            const noResults = document.getElementById('noResults');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.trim().toLowerCase();
+                let hasResults = false;
+                
+                resourceItems.forEach(item => {
+                    const title = item.querySelector('.resource-title').textContent.toLowerCase();
+                    const link = item.querySelector('.resource-link').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || link.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        hasResults = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                if (hasResults) {
+                    noResults.style.display = 'none';
+                } else {
+                    noResults.style.display = 'block';
+                }
+            });
         });
     </script>
 </body>
 </html>
-
-
-
-
