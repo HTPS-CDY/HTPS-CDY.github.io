@@ -260,6 +260,49 @@
             display: none;
         }
         
+        /* 媒体播放器容器样式 */
+        .media-player-container {
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .media-player {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
+            background: #000;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            gap: 10px;
+        }
+        
+        .player-btn {
+            background: rgba(100, 181, 246, 0.3);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .player-btn:hover {
+            background: rgba(100, 181, 246, 0.5);
+        }
+        
+        /* 媒体图标样式 */
+        .media-icon {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
         /* 动画效果 */
         @keyframes pulse {
             0% { opacity: 0.8; transform: scale(1); }
@@ -427,6 +470,43 @@
                     <div class="resource-title">HMCL（分享）</div>
                     <a href="https://www.123912.com/s/LLB2Td-oXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-oXkg3</a>
                 </li>
+                
+                <!-- 新增的视频资源入口 -->
+                <li class="resource-item">
+                    <div class="resource-title">
+                        <span class="media-icon">🎬</span>好看的视频
+                    </div>
+                    <a href="#" class="resource-link" id="videoLink">点击播放视频</a>
+                    <div class="media-player-container" id="videoPlayerContainer">
+                        <video class="media-player" id="videoPlayer" controls>
+                            <source src="MP4.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放。
+                        </video>
+                        <div class="player-controls">
+                            <button class="player-btn" id="playVideoBtn">播放</button>
+                            <button class="player-btn" id="pauseVideoBtn">暂停</button>
+                            <button class="player-btn" id="fullscreenVideoBtn">全屏</button>
+                        </div>
+                    </div>
+                </li>
+                
+                <!-- 新增的音频资源入口 -->
+                <li class="resource-item">
+                    <div class="resource-title">
+                        <span class="media-icon">🎵</span>好听的音乐（真）
+                    </div>
+                    <a href="#" class="resource-link" id="audioLink">点击播放音乐</a>
+                    <div class="media-player-container" id="audioPlayerContainer">
+                        <audio class="media-player" id="audioPlayer" controls>
+                            <source src="thank%20you%20for%20dears.mp3" type="audio/mpeg">
+                            您的浏览器不支持音频播放。
+                        </audio>
+                        <div class="player-controls">
+                            <button class="player-btn" id="playAudioBtn">播放</button>
+                            <button class="player-btn" id="pauseAudioBtn">暂停</button>
+                        </div>
+                    </div>
+                </li>
             </ul>
             
             <div class="divider"></div>
@@ -534,9 +614,74 @@
                     noResults.style.display = 'block';
                 }
             });
+            
+            // 视频播放功能
+            const videoLink = document.getElementById('videoLink');
+            const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const playVideoBtn = document.getElementById('playVideoBtn');
+            const pauseVideoBtn = document.getElementById('pauseVideoBtn');
+            const fullscreenVideoBtn = document.getElementById('fullscreenVideoBtn');
+            
+            videoLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 切换显示状态
+                if (videoPlayerContainer.style.display === 'block') {
+                    videoPlayerContainer.style.display = 'none';
+                    videoPlayer.pause();
+                } else {
+                    videoPlayerContainer.style.display = 'block';
+                    videoPlayer.play();
+                }
+            });
+            
+            playVideoBtn.addEventListener('click', function() {
+                videoPlayer.play();
+            });
+            
+            pauseVideoBtn.addEventListener('click', function() {
+                videoPlayer.pause();
+            });
+            
+            fullscreenVideoBtn.addEventListener('click', function() {
+                if (videoPlayer.requestFullscreen) {
+                    videoPlayer.requestFullscreen();
+                } else if (videoPlayer.mozRequestFullScreen) {
+                    videoPlayer.mozRequestFullScreen();
+                } else if (videoPlayer.webkitRequestFullscreen) {
+                    videoPlayer.webkitRequestFullscreen();
+                } else if (videoPlayer.msRequestFullscreen) {
+                    videoPlayer.msRequestFullscreen();
+                }
+            });
+            
+            // 音频播放功能
+            const audioLink = document.getElementById('audioLink');
+            const audioPlayerContainer = document.getElementById('audioPlayerContainer');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const playAudioBtn = document.getElementById('playAudioBtn');
+            const pauseAudioBtn = document.getElementById('pauseAudioBtn');
+            
+            audioLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 切换显示状态
+                if (audioPlayerContainer.style.display === 'block') {
+                    audioPlayerContainer.style.display = 'none';
+                    audioPlayer.pause();
+                } else {
+                    audioPlayerContainer.style.display = 'block';
+                    audioPlayer.play();
+                }
+            });
+            
+            playAudioBtn.addEventListener('click', function() {
+                audioPlayer.play();
+            });
+            
+            pauseAudioBtn.addEventListener('click', function() {
+                audioPlayer.pause();
+            });
         });
     </script>
 </body>
 </html>
-
-
