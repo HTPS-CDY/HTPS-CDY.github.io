@@ -23,7 +23,13 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed; /* 固定背景 */
+            background-attachment: fixed;
+            transition: background-color 0.3s ease;
+        }
+        
+        body.light-mode {
+            background-color: #f0f2f5;
+            color: #333;
         }
         
         .overlay {
@@ -34,6 +40,11 @@
             height: 100%;
             background: rgba(0, 0, 20, 0.7);
             z-index: -1;
+            transition: background 0.3s ease;
+        }
+        
+        body.light-mode .overlay {
+            background: rgba(255, 255, 255, 0.8);
         }
         
         .container {
@@ -75,11 +86,19 @@
             letter-spacing: 1px;
         }
         
+        body.light-mode h1 {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
         h2 {
             font-size: 1.6rem;
             color: #e0e0ff;
             margin: 10px 0;
             font-weight: 500;
+        }
+        
+        body.light-mode h2 {
+            color: #4a5568;
         }
         
         h3 {
@@ -89,6 +108,11 @@
             padding-bottom: 8px;
             border-bottom: 2px solid rgba(255, 255, 255, 0.2);
             position: relative;
+        }
+        
+        body.light-mode h3 {
+            color: #2d3748;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
         }
         
         h3::after {
@@ -109,6 +133,13 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        body.light-mode .content {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .resource-list {
@@ -126,11 +157,22 @@
             overflow: hidden;
         }
         
+        body.light-mode .resource-item {
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
         .resource-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             background: rgba(255, 255, 255, 0.12);
             border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        body.light-mode .resource-item:hover {
+            background: rgba(0, 0, 0, 0.06);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: rgba(0, 0, 0, 0.1);
         }
         
         .resource-item::before {
@@ -150,6 +192,11 @@
             font-size: 1.1rem;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+        }
+        
+        body.light-mode .resource-title {
+            color: #2d3748;
         }
         
         .resource-title::before {
@@ -168,6 +215,13 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             border: 1px solid rgba(100, 181, 246, 0.3);
+            margin-bottom: 10px;
+        }
+        
+        body.light-mode .resource-link {
+            color: #3182ce;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(49, 130, 206, 0.3);
         }
         
         .resource-link:hover {
@@ -177,10 +231,20 @@
             border-color: rgba(187, 134, 252, 0.5);
         }
         
+        body.light-mode .resource-link:hover {
+            color: #6b46c1;
+            background: rgba(0, 0, 0, 0.08);
+            border-color: rgba(107, 70, 193, 0.5);
+        }
+        
         .divider {
             height: 1px;
             background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
             margin: 30px 0;
+        }
+        
+        body.light-mode .divider {
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
         }
         
         .date-display {
@@ -195,11 +259,21 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        body.light-mode .date-display {
+            color: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
         .footer {
             text-align: center;
             color: rgba(255, 255, 255, 0.6);
             padding: 20px;
             font-size: 0.9rem;
+        }
+        
+        body.light-mode .footer {
+            color: rgba(0, 0, 0, 0.6);
         }
         
         .anniversary {
@@ -214,6 +288,10 @@
             background: rgba(0, 0, 0, 0.3);
             border-radius: 30px;
             display: inline-block;
+        }
+        
+        body.light-mode .anniversary {
+            background: rgba(0, 0, 0, 0.1);
         }
         
         /* 搜索框样式 */
@@ -237,10 +315,21 @@
             padding-left: 50px;
         }
         
+        body.light-mode .search-box {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+        
         .search-box:focus {
             outline: none;
             background: rgba(0, 0, 0, 0.5);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 126, 95, 0.5);
+        }
+        
+        body.light-mode .search-box:focus {
+            background: rgba(0, 0, 0, 0.15);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(255, 126, 95, 0.5);
         }
         
         .search-icon {
@@ -252,12 +341,20 @@
             font-size: 1.2rem;
         }
         
+        body.light-mode .search-icon {
+            color: rgba(0, 0, 0, 0.6);
+        }
+        
         .no-results {
             text-align: center;
             color: rgba(255, 255, 255, 0.7);
             padding: 30px;
             font-size: 1.1rem;
             display: none;
+        }
+        
+        body.light-mode .no-results {
+            color: rgba(0, 0, 0, 0.6);
         }
         
         /* 媒体播放器容器样式 */
@@ -303,11 +400,192 @@
             font-size: 1.2rem;
         }
         
+        /* 新增功能样式 */
+        /* 分类筛选器 */
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .category-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        body.light-mode .category-btn {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: white;
+        }
+        
+        /* 收藏按钮 */
+        .favorite-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        body.light-mode .favorite-btn {
+            color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .favorite-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .favorite-btn.active {
+            color: #ff5e5e;
+        }
+        
+        /* 主题切换按钮 */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.3);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+        
+        body.light-mode .theme-toggle {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 加载动画 */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border-top: 5px solid #ff7e5f;
+            animation: spin 1s linear infinite;
+        }
+        
+        body.light-mode .loader {
+            background: #f0f2f5;
+        }
+        
+        body.light-mode .loader-spinner {
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #ff7e5f;
+        }
+        
+        /* 资源统计 */
+        .resource-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        body.light-mode .resource-stats {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff7e5f;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        body.light-mode .stat-label {
+            color: rgba(0, 0, 0, 0.6);
+        }
+        
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
         /* 动画效果 */
         @keyframes pulse {
             0% { opacity: 0.8; transform: scale(1); }
             50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 204, 0, 0.8); transform: scale(1.05); }
             100% { opacity: 0.8; transform: scale(1); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         /* 响应式设计 */
@@ -350,6 +628,25 @@
             .search-icon {
                 left: 15px;
             }
+            
+            .resource-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -386,7 +683,18 @@
     </style>
 </head>
 <body>
+    <!-- 加载动画 -->
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+    
     <div class="overlay"></div>
+    
+    <!-- 主题切换按钮 -->
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+    
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">↑</div>
     
     <div class="container">
         <div class="header">
@@ -395,12 +703,38 @@
             <h1>HTPS 资源分享站</h1>
             <h2>开发者: HTPS--C.D.Y</h2>
             <h3>使用GitHub\Netlify静态部署</h3>
+            <h3>抖音：HTPS-YAN-C.D.Y</h3> 
+        </div>
+        
+        <!-- 资源统计 -->
+        <div class="resource-stats" id="resourceStats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalResources">0</div>
+                <div class="stat-label">总资源数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="favoriteCount">0</div>
+                <div class="stat-label">收藏数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="visitedCount">0</div>
+                <div class="stat-label">访问次数</div>
+            </div>
         </div>
         
         <!-- 搜索框 -->
         <div class="search-container">
             <div class="search-icon">🔍</div>
             <input type="text" id="searchInput" class="search-box" placeholder="输入关键词搜索资源...">
+        </div>
+        
+        <!-- 分类筛选 -->
+        <div class="category-filter" id="categoryFilter">
+            <button class="category-btn active" data-category="all">全部</button>
+            <button class="category-btn" data-category="game">游戏</button>
+            <button class="category-btn" data-category="tool">工具</button>
+            <button class="category-btn" data-category="media">媒体</button>
+            <button class="category-btn" data-category="other">其他</button>
         </div>
         
         <div class="content">
@@ -413,7 +747,7 @@
                     <div class="resource-title">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
                 </li>
                 <li class="resource-item">
-                    <div class="resource-title">最后更新: 2025.8.9-10:20 am</div>
+                    <div class="resource-title">最后更新: 2025.8.21-8:10 pm</div>
                 </li>
             </ul>
             
@@ -422,59 +756,96 @@
             <h3>资源列表</h3>
             <div class="no-results" id="noResults">没有找到匹配的资源</div>
             <ul class="resource-list" id="resourcesList">
-                <li class="resource-item">
-                    <div class="resource-title">PCL下载（分享）</div>
+                <li class="resource-item" data-category="tool">
+                    <div class="resource-title">
+                        PCL下载（分享）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://www.123912.com/s/LLB2Td-WGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-WGkg3</a>
                 </li>
-                <li class="resource-item">
-                    <div class="resource-title">PCL下载（官方）</div>
+                <li class="resource-item" data-category="tool">
+                    <div class="resource-title">
+                        PCL下载（官方）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://bbsmc.net/software/pcl" class="resource-link" target="_blank">https://bbsmc.net/software/pcl</a>
                 </li>
-                <li class="resource-item">
-                    <div class="resource-title">FCL下载（分享）</div>
+                <li class="resource-item" data-category="tool">
+                    <div class="resource-title">
+                        FCL下载（分享）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://www.123912.com/s/LLB2Td-CGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-CGkg3</a>
                 </li>
-                <li class="resource-item">
-                    <div class="resource-title">FCL下载（官方）</div>
+                <li class="resource-item" data-category="tool">
+                    <div class="resource-title">
+                        FCL下载（官方）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://foldcraftlauncher.cn/?tab=1" class="resource-link" target="_blank">https://foldcraftlauncher.cn/?tab=1</a>
                 </li>
-                <li class="resource-item">
-                    <div class="resource-title">yanderesimulator下载（官方）</div>
+                <li class="resource-item" data-category="game">
+                    <div class="resource-title">
+                        yanderesimulator下载（官方）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://yanderesimulator.com/download/" class="resource-link" target="_blank">https://yanderesimulator.com/download/</a>
                 </li>
-                <li class="resource-item">
-                    <div class="resource-title">yanderesimulator posemod（分享）</div>
+                <li class="resource-item" data-category="game">
+                    <div class="resource-title">
+                        yanderesimulator posemod（分享）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://www.123912.com/s/LLB2Td-NGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-NGkg3</a>
                 </li>
-                <li class="resource-item">
-                    <div class="resource-title">爱之恸汉化包（分享）</div>
+                <li class="resource-item" data-category="game">
+                    <div class="resource-title">
+                        爱之恸汉化包（分享）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://www.123912.com/s/LLB2Td-OGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-OGkg3</a>
                 </li>
-                 <li class="resource-item">
-                    <div class="resource-title">生存战争（分享）</div>
+                 <li class="resource-item" data-category="game">
+                    <div class="resource-title">
+                        生存战争（分享）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://www.123912.com/s/LLB2Td-QXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-QXkg3</a>
                 </li>
-                 <li class="resource-item">
-                    <div class="resource-title">西奥小镇（分享）</div>
+                 <li class="resource-item" data-category="game">
+                    <div class="resource-title">
+                        西奥小镇（分享）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://www.123912.com/s/LLB2Td-EXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-EXkg3</a>
                 </li>
-                <li class="resource-item">
-                    <div class="resource-title">航天模拟器PC（分享）</div>
+                <li class="resource-item" data-category="game">
+                    <div class="resource-title">
+                        航天模拟器PC（分享）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://www.123912.com/s/LLB2Td-kXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-kXkg3</a>
                 </li>
-                <li class="resource-item">
-                    <div class="resource-title">HMCL（官方）</div>
+                <li class="resource-item" data-category="tool">
+                    <div class="resource-title">
+                        HMCL（官方）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://hmcl.huangyuhui.net/download/" class="resource-link" target="_blank">https://hmcl.huangyuhui.net/download/</a>
                 </li>
-                <li class="resource-item">
-                    <div class="resource-title">HMCL（分享）</div>
+                <li class="resource-item" data-category="tool">
+                    <div class="resource-title">
+                        HMCL（分享）
+                        <button class="favorite-btn">☆</button>
+                    </div>
                     <a href="https://www.123912.com/s/LLB2Td-oXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-oXkg3</a>
                 </li>
                
                 <!-- 新增的视频资源入口 -->
-                <li class="resource-item">
+                <li class="resource-item" data-category="media">
                     <div class="resource-title">
                         <span class="media-icon">🎬</span>好看的视频
+                        <button class="favorite-btn">☆</button>
                     </div>
                     <a href="#" class="resource-link" id="videoLink">点击播放视频</a>
                     <div class="media-player-container" id="videoPlayerContainer">
@@ -491,9 +862,10 @@
                 </li>
                 
                 <!-- 新增的音频资源入口 -->
-                <li class="resource-item">
+                <li class="resource-item" data-category="media">
                     <div class="resource-title">
                         <span class="media-icon">🎵</span>好听的音乐（真）
+                        <button class="favorite-btn">☆</button>
                     </div>
                     <a href="#" class="resource-link" id="audioLink">点击播放音乐</a>
                     <div class="media-player-container" id="audioPlayerContainer">
@@ -521,6 +893,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // 页面加载完成后隐藏加载动画
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+            
             // 获取当前日期和时间
             const now = new Date();
             const year = now.getFullYear();
@@ -533,21 +910,20 @@
             const dateDisplay = document.getElementById('dateDisplay');
             dateDisplay.textContent = `当前时间: ${year}.${month}.${date}-${hours}:${minutes}`;
             
-           // 定义特殊日期范围（国家重大事件纪念日）
-const specialRanges = [
-    // 格式: [开始月份, 开始日期, 结束月份, 结束日期]
-    [8, 1, 8, 2],   // 8.1 建军节
-    [7, 1, 7, 2],   // 7.1 建党节
-    [10, 1, 10, 2], // 10.1 国庆节
-    [12, 13, 12, 14], // 12.13 南京大屠杀死难者国家公祭日
-    [5, 1, 5, 2],   // 5.1 劳动节
-    
-    // 中国及世界反法西斯相关纪念日
-    [8, 15, 8, 16], // 8.15 日本宣布无条件投降纪念日（中国抗日战争胜利纪念日之一）
-    [9, 3, 9, 4],   // 9.3 中国人民抗日战争暨世界反法西斯战争胜利纪念日
-    [9, 2, 9, 3]    // 9.2 日本签署投降书纪念日（世界反法西斯战争最终结束标志）
-];
-
+            // 定义特殊日期范围（国家重大事件纪念日）
+            const specialRanges = [
+                // 格式: [开始月份, 开始日期, 结束月份, 结束日期]
+                [8, 1, 8, 2],   // 8.1 建军节
+                [7, 1, 7, 2],   // 7.1 建党节
+                [10, 1, 10, 2], // 10.1 国庆节
+                [12, 13, 12, 14], // 12.13 南京大屠杀死难者国家公祭日
+                [5, 1, 5, 2],   // 5.1 劳动节
+                
+                // 中国及世界反法西斯相关纪念日
+                [8, 15, 8, 16], // 8.15 日本宣布无条件投降纪念日（中国抗日战争胜利纪念日之一）
+                [9, 3, 9, 4],   // 9.3 中国人民抗日战争暨世界反法西斯战争胜利纪念日
+                [9, 2, 9, 3]    // 9.2 日本签署投降书纪念日（世界反法西斯战争最终结束标志）
+            ];
             
             // 检查当前日期是否在特殊日期范围内
             let isSpecialDate = false;
@@ -653,7 +1029,7 @@ const specialRanges = [
                 } else if (videoPlayer.mozRequestFullScreen) {
                     videoPlayer.mozRequestFullScreen();
                 } else if (videoPlayer.webkitRequestFullscreen) {
-                    videoPlayer.webkitRequestFullscreen();
+                    videoPlayer.webkitRequestfullscreen();
                 } else if (videoPlayer.msRequestFullscreen) {
                     videoPlayer.msRequestFullscreen();
                 }
@@ -685,12 +1061,128 @@ const specialRanges = [
             pauseAudioBtn.addEventListener('click', function() {
                 audioPlayer.pause();
             });
+            
+            // 新增功能实现
+            
+            // 1. 主题切换功能
+            const themeToggle = document.getElementById('themeToggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // 检查本地存储或系统偏好
+            const currentTheme = localStorage.getItem('theme') || 
+                                (prefersDarkScheme.matches ? 'dark' : 'light');
+            
+            if (currentTheme === 'light') {
+                document.body.classList.add('light-mode');
+                themeToggle.textContent = '☀️';
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('light-mode');
+                if (document.body.classList.contains('light-mode')) {
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.textContent = '☀️';
+                } else {
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.textContent = '🌙';
+                }
+            });
+            
+            // 2. 分类筛选功能
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // 为当前点击的按钮添加active类
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // 筛选资源
+                    resourceItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // 3. 收藏功能
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+            
+            // 从本地存储加载收藏状态
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || {};
+            
+            favoriteButtons.forEach(button => {
+                const resourceItem = button.closest('.resource-item');
+                const resourceTitle = resourceItem.querySelector('.resource-title').textContent.trim();
+                
+                // 检查是否已收藏
+                if (favorites[resourceTitle]) {
+                    button.classList.add('active');
+                    button.textContent = '★';
+                }
+                
+                button.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    
+                    if (this.classList.contains('active')) {
+                        this.textContent = '★';
+                        favorites[resourceTitle] = true;
+                    } else {
+                        this.textContent = '☆';
+                        delete favorites[resourceTitle];
+                    }
+                    
+                    // 保存到本地存储
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                    
+                    // 更新收藏统计
+                    updateStats();
+                });
+            });
+            
+            // 4. 回到顶部按钮
+            const backToTopButton = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 5. 更新资源统计
+            function updateStats() {
+                // 总资源数
+                document.getElementById('totalResources').textContent = resourceItems.length;
+                
+                // 收藏数
+                const favoriteCount = Object.keys(favorites).length;
+                document.getElementById('favoriteCount').textContent = favoriteCount;
+                
+                // 访问次数
+                let visitCount = localStorage.getItem('visitCount') || 0;
+                visitCount = parseInt(visitCount) + 1;
+                localStorage.setItem('visitCount', visitCount);
+                document.getElementById('visitedCount').textContent = visitCount;
+            }
+            
+            // 初始化统计
+            updateStats();
         });
     </script>
 </body>
 </html>
-
-
-
-
-
