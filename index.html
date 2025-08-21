@@ -48,7 +48,7 @@
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1200px; /* 增加容器宽度以容纳两列 */
             margin: 30px auto;
             padding: 0 20px;
             position: relative;
@@ -59,6 +59,30 @@
             text-align: center;
             margin-bottom: 30px;
             padding: 20px;
+        }
+        
+        /* 滚动横幅样式 */
+        .marquee-banner {
+            background: linear-gradient(to right, #ffcc00, #ff9900);
+            color: #000;
+            padding: 10px 0;
+            margin: 15px 0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
         }
         
         /* Logo样式 */
@@ -140,6 +164,19 @@
             background: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 双列布局 */
+        .two-column-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .two-column-layout {
+                grid-template-columns: 1fr;
+            }
         }
         
         .resource-list {
@@ -387,6 +424,9 @@
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .player-btn:hover {
@@ -703,7 +743,12 @@
             <h1>HTPS 资源分享站</h1>
             <h2>开发者: HTPS--C.D.Y</h2>
             <h3>使用GitHub\Netlify静态部署</h3>
-            <h3>抖音：HTPS-YAN-C.D.Y</h3> 
+            <h3>抖音：HTPS-YAN-C.D.Y</h3>
+            
+            <!-- 滚动横幅 -->
+            <div class="marquee-banner">
+                <h4 class="marquee-content">|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|</h4>
+            </div>
         </div>
         
         <!-- 资源统计 -->
@@ -747,7 +792,7 @@
                     <div class="resource-title">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
                 </li>
                 <li class="resource-item">
-                    <div class="resource-title">最后更新: 2025.8.21-8:10 pm</div>
+                    <div class="resource-title">最后更新: 2025.8.9-10:20 am</div>
                 </li>
             </ul>
             
@@ -755,131 +800,140 @@
             
             <h3>资源列表</h3>
             <div class="no-results" id="noResults">没有找到匹配的资源</div>
-            <ul class="resource-list" id="resourcesList">
-                <li class="resource-item" data-category="tool">
-                    <div class="resource-title">
-                        PCL下载（分享）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://www.123912.com/s/LLB2Td-WGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-WGkg3</a>
-                </li>
-                <li class="resource-item" data-category="tool">
-                    <div class="resource-title">
-                        PCL下载（官方）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://bbsmc.net/software/pcl" class="resource-link" target="_blank">https://bbsmc.net/software/pcl</a>
-                </li>
-                <li class="resource-item" data-category="tool">
-                    <div class="resource-title">
-                        FCL下载（分享）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://www.123912.com/s/LLB2Td-CGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-CGkg3</a>
-                </li>
-                <li class="resource-item" data-category="tool">
-                    <div class="resource-title">
-                        FCL下载（官方）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://foldcraftlauncher.cn/?tab=1" class="resource-link" target="_blank">https://foldcraftlauncher.cn/?tab=1</a>
-                </li>
-                <li class="resource-item" data-category="game">
-                    <div class="resource-title">
-                        yanderesimulator下载（官方）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://yanderesimulator.com/download/" class="resource-link" target="_blank">https://yanderesimulator.com/download/</a>
-                </li>
-                <li class="resource-item" data-category="game">
-                    <div class="resource-title">
-                        yanderesimulator posemod（分享）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://www.123912.com/s/LLB2Td-NGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-NGkg3</a>
-                </li>
-                <li class="resource-item" data-category="game">
-                    <div class="resource-title">
-                        爱之恸汉化包（分享）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://www.123912.com/s/LLB2Td-OGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-OGkg3</a>
-                </li>
-                 <li class="resource-item" data-category="game">
-                    <div class="resource-title">
-                        生存战争（分享）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://www.123912.com/s/LLB2Td-QXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-QXkg3</a>
-                </li>
-                 <li class="resource-item" data-category="game">
-                    <div class="resource-title">
-                        西奥小镇（分享）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://www.123912.com/s/LLB2Td-EXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-EXkg3</a>
-                </li>
-                <li class="resource-item" data-category="game">
-                    <div class="resource-title">
-                        航天模拟器PC（分享）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://www.123912.com/s/LLB2Td-kXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-kXkg3</a>
-                </li>
-                <li class="resource-item" data-category="tool">
-                    <div class="resource-title">
-                        HMCL（官方）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://hmcl.huangyuhui.net/download/" class="resource-link" target="_blank">https://hmcl.huangyuhui.net/download/</a>
-                </li>
-                <li class="resource-item" data-category="tool">
-                    <div class="resource-title">
-                        HMCL（分享）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="https://www.123912.com/s/LLB2Td-oXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-oXkg3</a>
-                </li>
-               
-                <!-- 新增的视频资源入口 -->
-                <li class="resource-item" data-category="media">
-                    <div class="resource-title">
-                        <span class="media-icon">🎬</span>好看的视频
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="#" class="resource-link" id="videoLink">点击播放视频</a>
-                    <div class="media-player-container" id="videoPlayerContainer">
-                        <video class="media-player" id="videoPlayer" controls>
-                            <source src="MP4.mp4" type="video/mp4">
-                            您的浏览器不支持视频播放。
-                        </video>
-                        <div class="player-controls">
-                            <button class="player-btn" id="playVideoBtn">播放</button>
-                            <button class="player-btn" id="pauseVideoBtn">暂停</button>
-                            <button class="player-btn" id="fullscreenVideoBtn">全屏</button>
+            
+            <!-- 双列布局容器 -->
+            <div class="two-column-layout">
+                <!-- 第一列 -->
+                <ul class="resource-list" id="resourcesList1">
+                    <li class="resource-item" data-category="tool">
+                        <div class="resource-title">
+                            PCL下载（分享）
+                            <button class="favorite-btn">☆</button>
                         </div>
-                    </div>
-                </li>
+                        <a href="https://www.123912.com/s/LLB2Td-WGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-WGkg3</a>
+                    </li>
+                    <li class="resource-item" data-category="tool">
+                        <div class="resource-title">
+                            PCL下载（官方）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="https://bbsmc.net/software/pcl" class="resource-link" target="_blank">https://bbsmc.net/software/pcl</a>
+                    </li>
+                    <li class="resource-item" data-category="tool">
+                        <div class="resource-title">
+                            FCL下载（分享）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="https://www.123912.com/s/LLB2Td-CGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-CGkg3</a>
+                    </li>
+                    <li class="resource-item" data-category="tool">
+                        <div class="resource-title">
+                            FCL下载（官方）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="https://foldcraftlauncher.cn/?tab=1" class="resource-link" target="_blank">https://foldcraftlauncher.cn/?tab=1</a>
+                    </li>
+                    <li class="resource-item" data-category="game">
+                        <div class="resource-title">
+                            yanderesimulator下载（官方）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="https://yanderesimulator.com/download/" class="resource-link" target="_blank">https://yanderesimulator.com/download/</a>
+                    </li>
+                    <li class="resource-item" data-category="game">
+                        <div class="resource-title">
+                            yanderesimulator posemod（分享）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="https://www.123912.com/s/LLB2Td-NGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-NGkg3</a>
+                    </li>
+                    <li class="resource-item" data-category="game">
+                        <div class="resource-title">
+                            爱之恸汉化包（分享）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="https://www.123912.com/s/LLB2Td-OGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-OGkg3</a>
+                    </li>
+                    <li class="resource-item" data-category="game">
+                        <div class="resource-title">
+                            生存战争（分享）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="https://www.123912.com/s/LLB2Td-QXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-QXkg3</a>
+                    </li>
+                    <li class="resource-item" data-category="game">
+                        <div class="resource-title">
+                            西奥小镇（分享）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="https://www.123912.com/s/LLB2Td-EXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-EXkg3</a>
+                    </li>
+                    <li class="resource-item" data-category="game">
+                        <div class="resource-title">
+                            航天模拟器PC（分享）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="https://www.123912.com/s/LLB2Td-kXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-kXkg3</a>
+                    </li>
+                </ul>
                 
-                <!-- 新增的音频资源入口 -->
-                <li class="resource-item" data-category="media">
-                    <div class="resource-title">
-                        <span class="media-icon">🎵</span>好听的音乐（真）
-                        <button class="favorite-btn">☆</button>
-                    </div>
-                    <a href="#" class="resource-link" id="audioLink">点击播放音乐</a>
-                    <div class="media-player-container" id="audioPlayerContainer">
-                        <audio class="media-player" id="audioPlayer" controls>
-                            <source src="thank%20you%20for%20dears.mp3" type="audio/mpeg">
-                            您的浏览器不支持音频播放。
-                        </audio>
-                        <div class="player-controls">
-                            <button class="player-btn" id="playAudioBtn">播放</button>
-                            <button class="player-btn" id="pauseAudioBtn">暂停</button>
+                <!-- 第二列 -->
+                <ul class="resource-list" id="resourcesList2">
+                    <li class="resource-item" data-category="tool">
+                        <div class="resource-title">
+                            HMCL（官方）
+                            <button class="favorite-btn">☆</button>
                         </div>
-                    </div>
-                </li>
-            </ul>
+                        <a href="https://hmcl.huangyuhui.net/download/" class="resource-link" target="_blank">https://hmcl.huangyuhui.net/download/</a>
+                    </li>
+                    <li class="resource-item" data-category="tool">
+                        <div class="resource-title">
+                            HMCL（分享）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="https://www.123912.com/s/LLB2Td-oXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-oXkg3</a>
+                    </li>
+                   
+                    <!-- 新增的视频资源入口 -->
+                    <li class="resource-item" data-category="media">
+                        <div class="resource-title">
+                            <span class="media-icon">🎬</span>好看的视频
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="#" class="resource-link" id="videoLink">点击播放视频</a>
+                        <div class="media-player-container" id="videoPlayerContainer">
+                            <video class="media-player" id="videoPlayer" controls>
+                                <source src="MP4.mp4" type="video/mp4">
+                                您的浏览器不支持视频播放。
+                            </video>
+                            <div class="player-controls">
+                                <button class="player-btn" id="playVideoBtn">▶️ 播放</button>
+                                <button class="player-btn" id="pauseVideoBtn">⏸️ 暂停</button>
+                                <button class="player-btn" id="fullscreenVideoBtn">⛶ 全屏</button>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <!-- 新增的音频资源入口 -->
+                    <li class="resource-item" data-category="media">
+                        <div class="resource-title">
+                            <span class="media-icon">🎵</span>好听的音乐（真）
+                            <button class="favorite-btn">☆</button>
+                        </div>
+                        <a href="#" class="resource-link" id="audioLink">点击播放音乐</a>
+                        <div class="media-player-container" id="audioPlayerContainer">
+                            <audio class="media-player" id="audioPlayer" controls>
+                                <source src="thank%20you%20for%20dears.mp3" type="audio/mpeg">
+                                您的浏览器不支持音频播放。
+                            </audio>
+                            <div class="player-controls">
+                                <button class="player-btn" id="playAudioBtn">▶️ 播放</button>
+                                <button class="player-btn" id="pauseAudioBtn">⏸️ 暂停</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             
             <div class="divider"></div>
             
@@ -968,15 +1022,18 @@
             
             // 搜索功能实现
             const searchInput = document.getElementById('searchInput');
-            const resourcesList = document.getElementById('resourcesList');
-            const resourceItems = resourcesList.querySelectorAll('.resource-item');
             const noResults = document.getElementById('noResults');
+            
+            // 获取所有资源项
+            const resourceItems1 = document.querySelectorAll('#resourcesList1 .resource-item');
+            const resourceItems2 = document.querySelectorAll('#resourcesList2 .resource-item');
+            const allResourceItems = [...resourceItems1, ...resourceItems2];
             
             searchInput.addEventListener('input', function() {
                 const searchTerm = this.value.trim().toLowerCase();
                 let hasResults = false;
                 
-                resourceItems.forEach(item => {
+                allResourceItems.forEach(item => {
                     const title = item.querySelector('.resource-title').textContent.toLowerCase();
                     const link = item.querySelector('.resource-link').textContent.toLowerCase();
                     
@@ -1101,7 +1158,7 @@
                     const category = this.getAttribute('data-category');
                     
                     // 筛选资源
-                    resourceItems.forEach(item => {
+                    allResourceItems.forEach(item => {
                         if (category === 'all' || item.getAttribute('data-category') === category) {
                             item.style.display = 'block';
                         } else {
@@ -1167,7 +1224,7 @@
             // 5. 更新资源统计
             function updateStats() {
                 // 总资源数
-                document.getElementById('totalResources').textContent = resourceItems.length;
+                document.getElementById('totalResources').textContent = allResourceItems.length;
                 
                 // 收藏数
                 const favoriteCount = Object.keys(favorites).length;
