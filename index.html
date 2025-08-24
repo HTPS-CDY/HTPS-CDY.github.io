@@ -928,7 +928,7 @@
                     <div class="resource-title">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
                 </li>
                 <li class="resource-item">
-                    <div class="resource-title">最后更新: 2025.8.22-9:00 pm</div>
+                    <div class="resource-title">最后更新: 2025.8.9-10:20 am</div>
                 </li>
             </ul>
             
@@ -998,3 +998,392 @@
                         西奥小镇（分享）
                         <button class="favorite-btn">☆</button>
                     </div>
+                    <a href="https://www.123912.com/s/LLB2Td-EXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-EXkg3</a>
+                </li>
+                <li class="resource-item" data-category="game">
+                    <div class="resource-title">
+                        航天模拟器PC（分享）
+                        <button class="favorite-btn">☆</button>
+                    </div>
+                    <a href="https://www.123912.com/s/LLB2Td-kXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-kXkg3</a>
+                </li>
+                <li class="resource-item" data-category="tool">
+                    <div class="resource-title">
+                        HMCL（官方）
+                        <button class="favorite-btn">☆</button>
+                    </div>
+                    <a href="https://hmcl.huangyuhui.net/download/" class="resource-link" target="_blank">https://hmcl.huangyuhui.net/download/</a>
+                </li>
+                <li class="resource-item" data-category="tool">
+                    <div class="resource-title">
+                        HMCL（分享）
+                        <button class="favorite-btn">☆</button>
+                    </div>
+                    <a href="https://www.123912.com/s/LLB2Td-oXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-oXkg3</a>
+                </li>
+               
+                <!-- 新增的视频资源入口 -->
+                <li class="resource-item" data-category="media">
+                    <div class="resource-title">
+                        <span class="media-icon">🎬</span>好看的视频
+                        <button class="favorite-btn">☆</button>
+                    </div>
+                    <a href="#" class="resource-link" id="videoLink">点击播放视频</a>
+                    <div class="media-player-container" id="videoPlayerContainer">
+                        <video class="media-player" id="videoPlayer" controls>
+                            <source src="MP4.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放。
+                        </video>
+                        <div class="player-controls">
+                            <button class="player-btn" id="playVideoBtn">▶️ 播放</button>
+                            <button class="player-btn" id="pauseVideoBtn">⏸️ 暂停</button>
+                            <button class="player-btn" id="fullscreenVideoBtn">⛶ 全屏</button>
+                        </div>
+                    </div>
+                </li>
+                
+                <!-- 新增的音频资源入口 -->
+                <li class="resource-item" data-category="media">
+                    <div class="resource-title">
+                        <span class="media-icon">🎵</span>好听的音乐（真）
+                        <button class="favorite-btn">☆</button>
+                    </div>
+                    <a href="#" class="resource-link" id="audioLink">点击播放音乐</a>
+                    <div class="media-player-container" id="audioPlayerContainer">
+                        <audio class="media-player" id="audioPlayer" controls>
+                            <source src="thank%20you%20for%20dears.mp3" type="audio/mpeg">
+                            您的浏览器不支持音频播放。
+                        </audio>
+                        <div class="player-controls">
+                            <button class="player-btn" id="playAudioBtn">▶️ 播放</button>
+                            <button class="player-btn" id="pauseAudioBtn">⏸️ 暂停</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            
+            <div class="divider"></div>
+            
+            <div class="date-display" id="dateDisplay"></div>
+        </div>
+        
+        <div class="footer">
+            HTPS &copy; 2025 | 资源免费分享平台
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 页面加载完成后隐藏加载动画
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+            
+            // 获取当前日期和时间
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1; // 月份从0开始，所以要加1
+            const date = now.getDate();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            
+            // 在页面上显示日期和时间
+            const dateDisplay = document.getElementById('dateDisplay');
+            dateDisplay.textContent = `当前时间: ${year}.${month}.${date}-${hours}:${minutes}`;
+            
+            // 定义特殊日期范围（国家重大事件纪念日）
+            const specialRanges = [
+                // 格式: [开始月份, 开始日期, 结束月份, 结束日期]
+                [8, 1, 8, 2],   // 8.1 建军节
+                [7, 1, 7, 2],   // 7.1 建党节
+                [10, 1, 10, 2], // 10.1 国庆节
+                [12, 13, 12, 14], // 12.13 南京大屠杀死难者国家公祭日
+                [5, 1, 5, 2],   // 5.1 劳动节
+                
+                // 中国及世界反法西斯相关纪念日
+                [8, 15, 8, 16], // 8.15 日本宣布无条件投降纪念日（中国抗日战争胜利纪念日之一）
+                [9, 3, 9, 4],   // 9.3 中国人民抗日战争暨世界反法西斯战争胜利纪念日
+                [9, 2, 9, 3]    // 9.2 日本签署投降书纪念日（世界反法西斯战争最终结束标志）
+            ];
+            
+            // 检查当前日期是否在特殊日期范围内
+            let isSpecialDate = false;
+            for (const range of specialRanges) {
+                const [startMonth, startDate, endMonth, endDate] = range;
+                
+                // 当前日期在特殊范围内
+                if (month === startMonth && date >= startDate && 
+                    month === endMonth && date < endDate) {
+                    isSpecialDate = true;
+                    break;
+                }
+            }
+            
+            // 选择背景图片 - 使用程序目录下的png文件夹
+            let backgroundImage;
+            if (isSpecialDate) {
+                // 特殊日期 - 从1,7,10中随机选择
+                const specialImages = [1, 7, 10];
+                const randomIndex = Math.floor(Math.random() * specialImages.length);
+                backgroundImage = `url('png/${specialImages[randomIndex]}.png')`;
+            } else {
+                // 普通日期 - 从2,3,4,5,6,8,9中随机选择
+                const normalImages = [2, 3, 4, 5, 6, 8, 9];
+                const randomIndex = Math.floor(Math.random() * normalImages.length);
+                backgroundImage = `url('png/${normalImages[randomIndex]}.png')`;
+            }
+            
+            // 设置背景图片
+            document.body.style.backgroundImage = backgroundImage;
+            
+            // 添加周年提示（在8月1日-8月10日期间显示）
+            if (month === 8 && date >= 1 && date <= 10) {
+                const anniversaryDiv = document.createElement('div');
+                anniversaryDiv.className = 'anniversary';
+                anniversaryDiv.textContent = '🎉 HTPS very good，欢迎投稿新资源😁👍！';
+                
+                // 在标题之后插入
+                const header = document.querySelector('.header');
+                header.appendChild(anniversaryDiv);
+            }
+            
+            // 抖音模态框功能
+            const douyinBtn = document.getElementById('douyinBtn');
+            const douyinModal = document.getElementById('douyinModal');
+            const modalClose = document.getElementById('modalClose');
+            
+            douyinBtn.addEventListener('click', function() {
+                douyinModal.style.display = 'flex';
+            });
+            
+            modalClose.addEventListener('click', function() {
+                douyinModal.style.display = 'none';
+            });
+            
+            // 点击模态框外部关闭
+            douyinModal.addEventListener('click', function(e) {
+                if (e.target === douyinModal) {
+                    douyinModal.style.display = 'none';
+                }
+            });
+            
+            // 搜索功能实现
+            const searchInput = document.getElementById('searchInput');
+            const resourcesList = document.getElementById('resourcesList');
+            const resourceItems = resourcesList.querySelectorAll('.resource-item');
+            const noResults = document.getElementById('noResults');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.trim().toLowerCase();
+                let hasResults = false;
+                
+                resourceItems.forEach(item => {
+                    const title = item.querySelector('.resource-title').textContent.toLowerCase();
+                    const link = item.querySelector('.resource-link').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || link.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        hasResults = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                if (hasResults) {
+                    noResults.style.display = 'none';
+                } else {
+                    noResults.style.display = 'block';
+                }
+            });
+            
+            // 视频播放功能
+            const videoLink = document.getElementById('videoLink');
+            const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const playVideoBtn = document.getElementById('playVideoBtn');
+            const pauseVideoBtn = document.getElementById('pauseVideoBtn');
+            const fullscreenVideoBtn = document.getElementById('fullscreenVideoBtn');
+            
+            videoLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 切换显示状态
+                if (videoPlayerContainer.style.display === 'block') {
+                    videoPlayerContainer.style.display = 'none';
+                    videoPlayer.pause();
+                } else {
+                    videoPlayerContainer.style.display = 'block';
+                    videoPlayer.play();
+                }
+            });
+            
+            playVideoBtn.addEventListener('click', function() {
+                videoPlayer.play();
+            });
+            
+            pauseVideoBtn.addEventListener('click', function() {
+                videoPlayer.pause();
+            });
+            
+            fullscreenVideoBtn.addEventListener('click', function() {
+                if (videoPlayer.requestFullscreen) {
+                    videoPlayer.requestFullscreen();
+                } else if (videoPlayer.mozRequestFullScreen) {
+                    videoPlayer.mozRequestFullScreen();
+                } else if (videoPlayer.webkitRequestFullscreen) {
+                    videoPlayer.webkitRequestfullscreen();
+                } else if (videoPlayer.msRequestFullscreen) {
+                    videoPlayer.msRequestFullscreen();
+                }
+            });
+            
+            // 音频播放功能
+            const audioLink = document.getElementById('audioLink');
+            const audioPlayerContainer = document.getElementById('audioPlayerContainer');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const playAudioBtn = document.getElementById('playAudioBtn');
+            const pauseAudioBtn = document.getElementById('pauseAudioBtn');
+            
+            audioLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 切换显示状态
+                if (audioPlayerContainer.style.display === 'block') {
+                    audioPlayerContainer.style.display = 'none';
+                    audioPlayer.pause();
+                } else {
+                    audioPlayerContainer.style.display = 'block';
+                    audioPlayer.play();
+                }
+            });
+            
+            playAudioBtn.addEventListener('click', function() {
+                audioPlayer.play();
+            });
+            
+            pauseAudioBtn.addEventListener('click', function() {
+                audioPlayer.pause();
+            });
+            
+            // 新增功能实现
+            
+            // 1. 主题切换功能
+            const themeToggle = document.getElementById('themeToggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // 检查本地存储或系统偏好
+            const currentTheme = localStorage.getItem('theme') || 
+                                (prefersDarkScheme.matches ? 'dark' : 'light');
+            
+            if (currentTheme === 'light') {
+                document.body.classList.add('light-mode');
+                themeToggle.textContent = '☀️';
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('light-mode');
+                if (document.body.classList.contains('light-mode')) {
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.textContent = '☀️';
+                } else {
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.textContent = '🌙';
+                }
+            });
+            
+            // 2. 分类筛选功能
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // 为当前点击的按钮添加active类
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // 筛选资源
+                    resourceItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // 3. 收藏功能
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+            
+            // 从本地存储加载收藏状态
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || {};
+            
+            favoriteButtons.forEach(button => {
+                const resourceItem = button.closest('.resource-item');
+                const resourceTitle = resourceItem.querySelector('.resource-title').textContent.trim();
+                
+                // 检查是否已收藏
+                if (favorites[resourceTitle]) {
+                    button.classList.add('active');
+                    button.textContent = '★';
+                }
+                
+                button.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    
+                    if (this.classList.contains('active')) {
+                        this.textContent = '★';
+                        favorites[resourceTitle] = true;
+                    } else {
+                        this.textContent = '☆';
+                        delete favorites[resourceTitle];
+                    }
+                    
+                    // 保存到本地存储
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                    
+                    // 更新收藏统计
+                    updateStats();
+                });
+            });
+            
+            // 4. 回到顶部按钮
+            const backToTopButton = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 5. 更新资源统计
+            function updateStats() {
+                // 总资源数
+                document.getElementById('totalResources').textContent = resourceItems.length;
+                
+                // 收藏数
+                const favoriteCount = Object.keys(favorites).length;
+                document.getElementById('favoriteCount').textContent = favoriteCount;
+                
+                // 访问次数
+                let visitCount = localStorage.getItem('visitCount') || 0;
+                visitCount = parseInt(visitCount) + 1;
+                localStorage.setItem('visitCount', visitCount);
+                document.getElementById('visitedCount').textContent = visitCount;
+            }
+            
+            // 初始化统计
+            updateStats();
+        });
+    </script>
+</body>
+</html>
