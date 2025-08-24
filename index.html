@@ -20,18 +20,16 @@
             position: relative;
             overflow-x: hidden;
             background-color: #1a1a2e;
-            background-image: url('background.jpg'); /* 默认背景图 */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            transition: background-color 0.3s ease, filter 0.3s ease;
+            transition: background-color 0.3s ease;
         }
         
         body.light-mode {
             background-color: #f0f2f5;
             color: #333;
-            filter: none; /* 浅色模式下移除滤镜 */
         }
         
         .overlay {
@@ -46,7 +44,7 @@
         }
         
         body.light-mode .overlay {
-            background: rgba(255, 255, 255, 0.6); /* 浅色模式下使用较浅的遮罩 */
+            background: rgba(255, 255, 255, 0.8);
         }
         
         .container {
@@ -706,49 +704,6 @@
             margin-top: 10px;
         }
         
-        /* 底部公告栏样式 */
-        .announcement-bar {
-            background-color: #e6f7ff; /* 浅蓝色背景 */
-            border-radius: 12px; /* 圆角 */
-            padding: 20px;
-            margin: 30px 0;
-            border: 2px solid #91d5ff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .announcement-title {
-            font-size: 1.3rem;
-            color: #1890ff;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .announcement-title::before {
-            content: "📢";
-            margin-right: 10px;
-            font-size: 1.5rem;
-        }
-        
-        .announcement-content {
-            color: #0050b3;
-            line-height: 1.8;
-        }
-        
-        /* 深色模式下的公告栏样式 */
-        body:not(.light-mode) .announcement-bar {
-            background-color: rgba(24, 144, 255, 0.15);
-            border: 2px solid rgba(24, 144, 255, 0.5);
-        }
-        
-        body:not(.light-mode) .announcement-title {
-            color: #69c0ff;
-        }
-        
-        body:not(.light-mode) .announcement-content {
-            color: #91d5ff;
-        }
-        
         /* 动画效果 */
         @keyframes pulse {
             0% { opacity: 0.8; transform: scale(1); }
@@ -829,14 +784,6 @@
             .douyin-qrcode {
                 max-width: 250px;
             }
-            
-            .announcement-bar {
-                padding: 15px;
-            }
-            
-            .announcement-title {
-                font-size: 1.2rem;
-            }
         }
         
         @media (max-width: 480px) {
@@ -890,14 +837,6 @@
             
             .modal-title {
                 font-size: 1.3rem;
-            }
-            
-            .announcement-bar {
-                padding: 12px;
-            }
-            
-            .announcement-title {
-                font-size: 1.1rem;
             }
         }
     </style>
@@ -989,7 +928,7 @@
                     <div class="resource-title">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
                 </li>
                 <li class="resource-item">
-                    <div class="resource-title">最后更新: 2025.8.24-8:20 pm</div>
+                    <div class="resource-title">最后更新: 2025.8.22-9:00 pm</div>
                 </li>
             </ul>
             
@@ -1059,190 +998,3 @@
                         西奥小镇（分享）
                         <button class="favorite-btn">☆</button>
                     </div>
-                    <a href="https://www.123912.com/s/LLB2Td-RXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-RXkg3</a>
-                </li>
-            </ul>
-            
-            <!-- 底部公告栏 -->
-            <div class="announcement-bar">
-                <div class="announcement-title">更新公告</div>
-                <div class="announcement-content">
-                    <p>在网站底部添加一个公告栏，也就是这个。</p>
-                    <p>修复用户在打开浅色模式时，背景图一起变白的bug，深色模式时，背景图会变暗，浅色模式应该变回原样才对，而不是变白变亮。</p>
-                    <p>联系方式：抖音</p>
-                </div>
-            </div>
-            
-            <div class="divider"></div>
-            
-            <!-- 日期显示 -->
-            <div class="date-display" id="currentDate">正在加载日期...</div>
-        </div>
-        
-        <div class="footer">
-            <p>© 2025 HTPS资源分享站 | 由 HTPS--C.D.Y 开发与维护</p>
-            <p>使用 GitHub & Netlify 静态部署</p>
-        </div>
-    </div>
-
-    <script>
-        // 页面加载完成后执行
-        document.addEventListener('DOMContentLoaded', function() {
-            // 隐藏加载动画
-            setTimeout(function() {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1000);
-            
-            // 设置当前日期
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString('zh-CN', options);
-            
-            // 初始化资源统计
-            const resourceItems = document.querySelectorAll('.resource-item');
-            document.getElementById('totalResources').textContent = resourceItems.length;
-            
-            // 主题切换功能
-            const themeToggle = document.getElementById('themeToggle');
-            themeToggle.addEventListener('click', function() {
-                document.body.classList.toggle('light-mode');
-                themeToggle.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
-                
-                // 保存主题偏好
-                localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-            });
-            
-            // 检查本地存储的主题偏好
-            if (localStorage.getItem('theme') === 'light') {
-                document.body.classList.add('light-mode');
-                themeToggle.textContent = '☀️';
-            }
-            
-            // 回到顶部按钮
-            const backToTopBtn = document.getElementById('backToTop');
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    backToTopBtn.classList.add('visible');
-                } else {
-                    backToTopBtn.classList.remove('visible');
-                }
-            });
-            
-            backToTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // 抖音模态框
-            const douyinBtn = document.getElementById('douyinBtn');
-            const douyinModal = document.getElementById('douyinModal');
-            const modalClose = document.getElementById('modalClose');
-            
-            douyinBtn.addEventListener('click', function() {
-                douyinModal.style.display = 'flex';
-            });
-            
-            modalClose.addEventListener('click', function() {
-                douyinModal.style.display = 'none';
-            });
-            
-            window.addEventListener('click', function(event) {
-                if (event.target === douyinModal) {
-                    douyinModal.style.display = 'none';
-                }
-            });
-            
-            // 搜索功能
-            const searchInput = document.getElementById('searchInput');
-            const noResults = document.getElementById('noResults');
-            
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                let found = false;
-                
-                document.querySelectorAll('.resource-item').forEach(function(item) {
-                    const title = item.querySelector('.resource-title').textContent.toLowerCase();
-                    const link = item.querySelector('.resource-link').textContent.toLowerCase();
-                    
-                    if (title.includes(searchTerm) || link.includes(searchTerm)) {
-                        item.style.display = 'block';
-                        found = true;
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-                
-                noResults.style.display = found ? 'none' : 'block';
-            });
-            
-            // 分类筛选
-            const categoryBtns = document.querySelectorAll('.category-btn');
-            
-            categoryBtns.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    
-                    // 更新按钮状态
-                    categoryBtns.forEach(function(btn) {
-                        btn.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                    
-                    // 筛选资源
-                    document.querySelectorAll('.resource-item').forEach(function(item) {
-                        if (category === 'all' || item.getAttribute('data-category') === category) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                    
-                    // 隐藏无结果提示
-                    noResults.style.display = 'none';
-                });
-            });
-            
-            // 收藏功能
-            const favoriteBtns = document.querySelectorAll('.favorite-btn');
-            let favorites = JSON.parse(localStorage.getItem('favorites')) || {};
-            
-            // 初始化收藏状态
-            favoriteBtns.forEach(function(btn) {
-                const resourceItem = btn.closest('.resource-item');
-                const resourceLink = resourceItem.querySelector('.resource-link').href;
-                
-                if (favorites[resourceLink]) {
-                    btn.classList.add('active');
-                    btn.textContent = '★';
-                }
-                
-                btn.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    
-                    if (this.classList.contains('active')) {
-                        this.textContent = '★';
-                        favorites[resourceLink] = true;
-                    } else {
-                        this.textContent = '☆';
-                        delete favorites[resourceLink];
-                    }
-                    
-                    localStorage.setItem('favorites', JSON.stringify(favorites));
-                    document.getElementById('favoriteCount').textContent = Object.keys(favorites).length;
-                });
-            });
-            
-            // 更新收藏计数
-            document.getElementById('favoriteCount').textContent = Object.keys(favorites).length;
-            
-            // 访问计数
-            let visitCount = parseInt(localStorage.getItem('visitCount')) || 0;
-            visitCount++;
-            localStorage.setItem('visitCount', visitCount);
-            document.getElementById('visitedCount').textContent = visitCount;
-        });
-    </script>
-</body>
-</html>
