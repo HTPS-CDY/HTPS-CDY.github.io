@@ -44,7 +44,7 @@
         }
         
         body.light-mode .overlay {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1); /* 修复浅色模式背景变白问题 */
         }
         
         .container {
@@ -287,6 +287,37 @@
             color: rgba(0, 0, 0, 0.6);
             background: rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 公告栏样式 */
+        .announcement {
+            background-color: #e3f2fd; /* 浅蓝色 */
+            border-radius: 12px; /* 圆角 */
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #2196f3;
+        }
+        
+        .announcement h4 {
+            color: #1565c0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .announcement h4::before {
+            content: '📢';
+            margin-right: 10px;
+        }
+        
+        .announcement p {
+            color: #37474f;
+            line-height: 1.6;
+        }
+        
+        body.light-mode .announcement {
+            background-color: #e3f2fd;
         }
         
         .footer {
@@ -1063,6 +1094,12 @@
             </ul>
             
             <div class="divider"></div>
+            
+            <!-- 公告栏 -->
+            <div class="announcement">
+                <h4>网站公告</h4>
+                <p>本站将持续更新优质资源，欢迎大家提供资源线索！如果您有好的资源想要分享，请联系我们。同时，我们也欢迎大家对网站提出宝贵意见和建议。</p>
+            </div>
             
             <div class="date-display" id="dateDisplay"></div>
         </div>
