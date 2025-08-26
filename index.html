@@ -93,6 +93,7 @@
             margin-bottom: 20px;
             filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
             transition: transform 0.5s ease;
+            cursor: pointer;
         }
         
         .centered-image:hover {
@@ -735,6 +736,36 @@
             margin-top: 10px;
         }
         
+        /* 彩蛋样式 */
+        .easter-egg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .easter-egg-text {
+            color: #ff0000;
+            font-size: 3rem;
+            text-align: center;
+            animation: shake 0.5s infinite;
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+        
         /* 动画效果 */
         @keyframes pulse {
             0% { opacity: 0.8; transform: scale(1); }
@@ -815,6 +846,10 @@
             .douyin-qrcode {
                 max-width: 250px;
             }
+            
+            .easter-egg-text {
+                font-size: 2rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -869,10 +904,19 @@
             .modal-title {
                 font-size: 1.3rem;
             }
+            
+            .easter-egg-text {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 彩蛋效果 -->
+    <div class="easter-egg" id="easterEgg">
+        <h1 class="easter-egg-text" id="eggText"></h1>
+    </div>
+    
     <!-- 加载动画 -->
     <div class="loader" id="loader">
         <div class="loader-spinner"></div>
@@ -899,7 +943,7 @@
     <div class="container">
         <div class="header">
             <!-- Logo -->
-            <img src="HTPS logo.png" alt="HTPS Logo" class="centered-image">
+            <img src="HTPS logo.png" alt="HTPS Logo" class="centered-image" id="logo">
             <h1>HTPS 资源分享站</h1>
             <h2>开发者: HTPS--C.D.Y</h2>
             <h3>使用GitHub\Netlify静态部署</h3>
@@ -959,7 +1003,7 @@
                     <div class="resource-title">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
                 </li>
                 <li class="resource-item">
-                    <div class="resource-title">最后更新: 2025.8.24-21:21 am</div>
+                    <div class="resource-title">最后更新: 2025.8.9-10:20 am</div>
                 </li>
             </ul>
             
@@ -1097,9 +1141,8 @@
             
             <!-- 公告栏 -->
             <div class="announcement">
-                <h4>更新公告</h4>
-                <p>添加了这个公告栏。</p>
-                <p>修复用户在打开浅色模式时，背景图一起变白的bug，深色模式时，背景图会变暗，浅色模式应该变回原样才对，而不是变白变亮。</p>
+                <h4>网站公告</h4>
+                <p>本站将持续更新优质资源，欢迎大家提供资源线索！如果您有好的资源想要分享，请联系我们。同时，我们也欢迎大家对网站提出宝贵意见和建议。</p>
             </div>
             
             <div class="date-display" id="dateDisplay"></div>
@@ -1421,8 +1464,114 @@
             
             // 初始化统计
             updateStats();
+            
+            // 6. 彩蛋功能
+            const logo = document.getElementById('logo');
+            const easterEgg = document.getElementById('easterEgg');
+            const eggText = document.getElementById('eggText');
+            
+            let clickCount = 0;
+            let lastClickTime = 0;
+            
+            // 禁用F12和F11功能
+            function disableDevTools() {
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'F12' || e.key === 'F11') {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+                
+                // 防止右键菜单
+                document.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+            }
+            
+            // 彩蛋触发函数
+            function triggerEasterEgg() {
+                // 禁用开发者工具
+                disableDevTools();
+                
+                // 隐藏所有内容
+                document.querySelector('.container').style.display = 'none';
+                document.querySelector('.overlay').style.display = 'none';
+                document.querySelector('.theme-toggle').style.display = 'none';
+                document.querySelector('.back-to-top').style.display = 'none';
+                
+                // 显示彩蛋
+                easterEgg.style.display = 'flex';
+                
+                // 进入全屏
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                }
+                
+                // 设置暗红色背景
+                setTimeout(() => {
+                    document.body.style.background = '#8B0000';
+                    easterEgg.style.background = '#8B0000';
+                    
+                    // 显示文字序列
+                    const messages = [
+                        "事情已经无法挽回了",
+                        "时间不多了",
+                        "不再快乐",
+                        "不再享受",
+                        "我们将离开这",
+                        "痛苦",
+                        "绝望",
+                        "寒心",
+                        "gobacktoschoolfuckyou"
+                        "gobacktoschoolfuckyou"
+                    ];
+                    
+                    let index = 0;
+                    
+                    function showNextMessage() {
+                        if (index < messages.length) {
+                            eggText.textContent = messages[index];
+                            index++;
+                            setTimeout(showNextMessage, 1000);
+                        } else {
+                            // 退出网页
+                            setTimeout(() => {
+                                window.close() || (window.location.href = 'about:blank');
+                            }, 1000);
+                        }
+                    }
+                    
+                    showNextMessage();
+                }, 500);
+            }
+            
+            // 监听logo点击事件
+            logo.addEventListener('click', function() {
+                const currentTime = new Date().getTime();
+                
+                // 如果两次点击间隔小于500ms，则增加计数
+                if (currentTime - lastClickTime < 500) {
+                    clickCount++;
+                    
+                    // 如果连续点击10次，触发彩蛋
+                    if (clickCount >= 9) { // 从0开始计数，所以9就是10次
+                        triggerEasterEgg();
+                    }
+                } else {
+                    // 重置计数
+                    clickCount = 0;
+                }
+                
+                lastClickTime = currentTime;
+                
+                // 5秒后重置计数
+                clearTimeout(window.clickResetTimer);
+                window.clickResetTimer = setTimeout(() => {
+                    clickCount = 0;
+                }, 5000);
+            });
         });
     </script>
 </body>
 </html>
-
