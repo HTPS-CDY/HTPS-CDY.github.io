@@ -44,7 +44,7 @@
         }
         
         body.light-mode .overlay {
-            background: rgba(255, 255, 255, 0.1); /* 修复浅色模式背景变白问题 */
+            background: rgba(255, 255, 255, 0.1);
         }
         
         .container {
@@ -292,8 +292,8 @@
         
         /* 公告栏样式 */
         .announcement {
-            background-color: #e3f2fd; /* 浅蓝色 */
-            border-radius: 12px; /* 圆角 */
+            background-color: #e3f2fd;
+            border-radius: 12px;
             padding: 20px;
             margin: 20px 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -736,7 +736,7 @@
             margin-top: 10px;
         }
         
-        /* 彩蛋样式 */
+        /* 彩蛋样式 - 修改为视频播放 */
         .easter-egg {
             position: fixed;
             top: 0;
@@ -751,6 +751,12 @@
             flex-direction: column;
         }
         
+        .easter-egg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         .easter-egg-text {
             color: #ff0000;
             font-size: 3rem;
@@ -758,6 +764,7 @@
             animation: shake 0.5s infinite;
             margin: 10px 0;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            display: none; /* 隐藏文字，只显示视频 */
         }
         
         @keyframes shake {
@@ -912,8 +919,12 @@
     </style>
 </head>
 <body>
-    <!-- 彩蛋效果 -->
+    <!-- 彩蛋效果 - 修改为视频播放 -->
     <div class="easter-egg" id="easterEgg">
+        <video class="easter-egg-video" id="easterEggVideo" autoplay>
+            <source src="caidan.mp4" type="video/mp4">
+            您的浏览器不支持视频播放。
+        </video>
         <h1 class="easter-egg-text" id="eggText"></h1>
     </div>
     
@@ -1465,9 +1476,10 @@
             // 初始化统计
             updateStats();
             
-            // 6. 彩蛋功能
+            // 6. 彩蛋功能 - 修改为播放视频
             const logo = document.getElementById('logo');
             const easterEgg = document.getElementById('easterEgg');
+            const easterEggVideo = document.getElementById('easterEggVideo');
             const eggText = document.getElementById('eggText');
             
             let clickCount = 0;
@@ -1489,7 +1501,7 @@
                 });
             }
             
-            // 彩蛋触发函数
+            // 彩蛋触发函数 - 修改为播放视频
             function triggerEasterEgg() {
                 // 禁用开发者工具
                 disableDevTools();
@@ -1508,22 +1520,30 @@
                     document.documentElement.requestFullscreen();
                 }
                 
-                // 设置暗红色背景
-                setTimeout(() => {
+                // 播放视频
+                easterEggVideo.play();
+                
+                // 监听视频结束事件
+                easterEggVideo.addEventListener('ended', function() {
+                    // 退出网页
+                    setTimeout(() => {
+                        window.close() || (window.location.href = 'about:blank');
+                    }, 1000);
+                });
+                
+                // 监听视频错误事件
+                easterEggVideo.addEventListener('error', function() {
+                    // 如果视频加载失败，显示原始文字彩蛋
                     document.body.style.background = '#8B0000';
                     easterEgg.style.background = '#8B0000';
+                    easterEggVideo.style.display = 'none';
+                    eggText.style.display = 'block';
                     
                     // 显示文字序列
                     const messages = [
-                        "事情已经无法挽回了",
-                        "时间不多了",
-                        "不在快乐",
-                        "不再享受",
-                        "我们将离开这",
-                        "痛苦",
-                        "绝望",
-                        "寒心",
-                        "gobacktoschoolfuckyou"
+                        "NO",
+                        "NO",
+                        "NO",
                     ];
                     
                     let index = 0;
@@ -1542,7 +1562,7 @@
                     }
                     
                     showNextMessage();
-                }, 500);
+                });
             }
             
             // 监听logo点击事件
@@ -1574,4 +1594,3 @@
     </script>
 </body>
 </html>
-
