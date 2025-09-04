@@ -785,6 +785,34 @@
             100% { transform: rotate(360deg); }
         }
         
+        /* 开发者信息样式 */
+        .developers {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        body.light-mode .developers {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .developers h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .developer-names {
+            color: #f8f9fa;
+            font-size: 1.1rem;
+        }
+        
+        body.light-mode .developer-names {
+            color: #2d3748;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .container {
@@ -957,6 +985,13 @@
             <img src="HTPS logo.png" alt="HTPS Logo" class="centered-image" id="logo">
             <h1>HTPS 资源分享站</h1>
             <h2>开发者: HTPS--C.D.Y</h2>
+            
+            <!-- 开发者名单 -->
+            <div class="developers">
+                <h3>开发团队</h3>
+                <div class="developer-names">htps-yan-c.d.y、芒果Ca</div>
+            </div>
+            
             <h3>使用GitHub\Netlify静态部署</h3>
             
             <!-- 抖音区域 -->
@@ -1014,7 +1049,7 @@
                     <div class="resource-title">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
                 </li>
                 <li class="resource-item">
-                    <div class="resource-title">最后更新: 2025.8.30-8:00 pm</div>
+                    <div class="resource-title">最后更新: 2025.9.4-5:20 pm</div>
                 </li>
             </ul>
             
@@ -1153,7 +1188,10 @@
             <!-- 公告栏 -->
             <div class="announcement">
                 <h4>更新公告</h4>
-                <p>？？？</p>
+                <p>1. 新增开发者名单展示，感谢芒果Ca的贡献</p>
+                <p>2. 优化了网站安全性，禁用了F12开发者工具和页面检查功能</p>
+                <p>3. 时间显示改为实时动态更新</p>
+                <p>4. 修复了部分资源链接显示问题</p>
             </div>
             
             <div class="date-display" id="dateDisplay"></div>
@@ -1165,23 +1203,78 @@
     </div>
 
     <script>
+        // 禁用开发者工具和检查功能
+        function disableDevTools() {
+            // 禁用F12、Ctrl+Shift+I、Ctrl+Shift+J、Ctrl+U
+            document.addEventListener('keydown', function(e) {
+                if (
+                    e.key === 'F12' || 
+                    e.key === 'F11' ||
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+                    (e.ctrlKey && e.key === 'U')
+                ) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+            });
+            
+            // 禁用右键菜单
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+            
+            // 禁用通过浏览器菜单打开开发者工具的尝试
+            if (typeof window.chrome !== 'undefined') {
+                // Chrome特定方法
+                window.addEventListener('devtoolschange', function(e) {
+                    if (e.detail.isOpen) {
+                        window.location.reload();
+                    }
+                });
+            }
+            
+            // 检测元素检查
+            document.addEventListener('mousedown', function(e) {
+                // 阻止双击选中和检查
+                if (e.detail > 1) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        }
+        
+        // 页面加载时立即禁用开发者工具
+        disableDevTools();
+        
         document.addEventListener('DOMContentLoaded', function() {
             // 页面加载完成后隐藏加载动画
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
             }, 1000);
             
-            // 获取当前日期和时间
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1; // 月份从0开始，所以要加1
-            const date = now.getDate();
-            const hours = now.getHours();
-            const minutes = now.getMinutes().toString().padStart(2, '0');
+            // 动态更新时间函数
+            function updateDateTime() {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = now.getMonth() + 1; // 月份从0开始，所以要加1
+                const date = now.getDate();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                
+                // 在页面上显示日期和时间
+                const dateDisplay = document.getElementById('dateDisplay');
+                dateDisplay.textContent = `当前时间: ${year}.${month}.${date} ${hours}:${minutes}:${seconds}`;
+            }
             
-            // 在页面上显示日期和时间
-            const dateDisplay = document.getElementById('dateDisplay');
-            dateDisplay.textContent = `当前时间: ${year}.${month}.${date}-${hours}:${minutes}`;
+            // 初始化时间显示
+            updateDateTime();
+            
+            // 每秒更新一次时间
+            setInterval(updateDateTime, 1000);
             
             // 定义特殊日期范围（国家重大事件纪念日）
             const specialRanges = [
@@ -1200,6 +1293,10 @@
             
             // 检查当前日期是否在特殊日期范围内
             let isSpecialDate = false;
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            const date = now.getDate();
+            
             for (const range of specialRanges) {
                 const [startMonth, startDate, endMonth, endDate] = range;
                 
@@ -1485,22 +1582,6 @@
             let clickCount = 0;
             let lastClickTime = 0;
             
-            // 禁用F12和F11功能
-            function disableDevTools() {
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'F12' || e.key === 'F11') {
-                        e.preventDefault();
-                        return false;
-                    }
-                });
-                
-                // 防止右键菜单
-                document.addEventListener('contextmenu', function(e) {
-                    e.preventDefault();
-                    return false;
-                });
-            }
-            
             // 彩蛋触发函数 - 修改为播放视频
             function triggerEasterEgg() {
                 // 禁用开发者工具
@@ -1594,4 +1675,3 @@
     </script>
 </body>
 </html>
-
