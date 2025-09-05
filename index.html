@@ -813,6 +813,152 @@
             color: #2d3748;
         }
         
+        /* 表格视图样式 */
+        .view-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+        
+        .view-btn {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        body.light-mode .view-btn {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+        
+        .view-btn.active {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: white;
+        }
+        
+        .resource-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        body.light-mode .resource-table {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .resource-table th, .resource-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.light-mode .resource-table th, 
+        body.light-mode .resource-table td {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .resource-table th {
+            background: rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+            color: #f8f9fa;
+        }
+        
+        body.light-mode .resource-table th {
+            background: rgba(0, 0, 0, 0.1);
+            color: #2d3748;
+        }
+        
+        .resource-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        body.light-mode .resource-table tr:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .table-link {
+            color: #64b5f6;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        
+        .table-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* 图片优化样式 */
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0),
+                        linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        
+        body.light-mode .image-placeholder {
+            background: linear-gradient(45deg, #e0e0e0 25%, transparent 25%, transparent 75%, #e0e0e0 75%, #e0e0e0),
+                        linear-gradient(45deg, #e0e0e0 25%, transparent 25%, transparent 75%, #e0e0e0 75%, #e0e0e0);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        
+        /* 加载日志窗口 */
+        .loader-log {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            height: 120px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            padding: 10px;
+            overflow-y: auto;
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .log-info {
+            color: #00ff00;
+        }
+        
+        .log-warning {
+            color: #ffff00;
+        }
+        
+        .log-error {
+            color: #ff0000;
+        }
+        
+        .log-time {
+            color: #888;
+            margin-right: 10px;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .container {
@@ -885,6 +1031,19 @@
             .easter-egg-text {
                 font-size: 2rem;
             }
+            
+            .resource-table {
+                font-size: 0.9rem;
+            }
+            
+            .resource-table th, .resource-table td {
+                padding: 8px 10px;
+            }
+            
+            .loader-log {
+                height: 80px;
+                font-size: 0.8rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -943,6 +1102,15 @@
             .easter-egg-text {
                 font-size: 1.5rem;
             }
+            
+            .resource-table {
+                font-size: 0.8rem;
+            }
+            
+            .view-btn {
+                padding: 6px 10px;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -959,6 +1127,7 @@
     <!-- 加载动画 -->
     <div class="loader" id="loader">
         <div class="loader-spinner"></div>
+        <div class="loader-log" id="loaderLog"></div>
     </div>
     
     <div class="overlay"></div>
@@ -982,7 +1151,7 @@
     <div class="container">
         <div class="header">
             <!-- Logo -->
-            <img src="HTPS logo.png" alt="HTPS Logo" class="centered-image" id="logo">
+            <img src="HTPS logo.png" alt="HTPS Logo" class="centered-image" id="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkhUUFMgTE9HTzwvdGV4dD48L3N2Zz4='">
             <h1>HTPS 资源分享站</h1>
             <h2>开发者: HTPS--C.D.Y</h2>
             
@@ -1055,8 +1224,20 @@
             
             <div class="divider"></div>
             
+            <!-- 视图切换 -->
+            <div class="view-toggle">
+                <button class="view-btn active" id="listViewBtn">
+                    <span>📋</span> 列表视图
+                </button>
+                <button class="view-btn" id="tableViewBtn">
+                    <span>📊</span> 表格视图
+                </button>
+            </div>
+            
             <h3>资源列表</h3>
             <div class="no-results" id="noResults">没有找到匹配的资源</div>
+            
+            <!-- 列表视图 -->
             <ul class="resource-list" id="resourcesList">
                 <li class="resource-item" data-category="tool">
                     <div class="resource-title">
@@ -1183,6 +1364,21 @@
                 </li>
             </ul>
             
+            <!-- 表格视图 -->
+            <table class="resource-table" id="resourceTable">
+                <thead>
+                    <tr>
+                        <th>资源名称</th>
+                        <th>类别</th>
+                        <th>链接</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 表格内容将通过JavaScript动态生成 -->
+                </tbody>
+            </table>
+            
             <div class="divider"></div>
             
             <!-- 公告栏 -->
@@ -1192,6 +1388,8 @@
                 <p>2. 优化了网站安全性，禁用了F12开发者工具和页面检查功能</p>
                 <p>3. 时间显示改为实时动态更新</p>
                 <p>4. 修复了部分资源链接显示问题</p>
+                <p>5. 新增表格视图，可切换列表/表格显示方式</p>
+                <p>6. 优化图片加载和彩蛋视频播放体验</p>
             </div>
             
             <div class="date-display" id="dateDisplay"></div>
@@ -1203,6 +1401,95 @@
     </div>
 
     <script>
+        // 资源数据
+        const resourcesData = [
+            {
+                title: "PCL下载（分享）",
+                category: "tool",
+                link: "https://www.123912.com/s/LLB2Td-WGkg3"
+            },
+            {
+                title: "PCL下载（官方）",
+                category: "tool",
+                link: "https://bbsmc.net/software/pcl"
+            },
+            {
+                title: "FCL下载（分享）",
+                category: "tool",
+                link: "https://www.123912.com/s/LLB2Td-CGkg3"
+            },
+            {
+                title: "FCL下载（官方）",
+                category: "tool",
+                link: "https://foldcraftlauncher.cn/?tab=1"
+            },
+            {
+                title: "yanderesimulator下载（官方）",
+                category: "game",
+                link: "https://yanderesimulator.com/download/"
+            },
+            {
+                title: "yanderesimulator posemod（分享）",
+                category: "game",
+                link: "https://www.123912.com/s/LLB2Td-NGkg3"
+            },
+            {
+                title: "爱之恸汉化包（分享）",
+                category: "game",
+                link: "https://www.123912.com/s/LLB2Td-OGkg3"
+            },
+            {
+                title: "生存战争（分享）",
+                category: "game",
+                link: "https://www.123912.com/s/LLB2Td-QXkg3"
+            },
+            {
+                title: "西奥小镇（分享）",
+                category: "game",
+                link: "https://www.123912.com/s/LLB2Td-EXkg3"
+            },
+            {
+                title: "航天模拟器PC（分享）",
+                category: "game",
+                link: "https://www.123912.com/s/LLB2Td-kXkg3"
+            },
+            {
+                title: "HMCL（官方）",
+                category: "tool",
+                link: "https://hmcl.huangyuhui.net/download/"
+            },
+            {
+                title: "HMCL（分享）",
+                category: "tool",
+                link: "https://www.123912.com/s/LLB2Td-oXkg3"
+            },
+            {
+                title: "好看的视频",
+                category: "media",
+                link: "#",
+                isMedia: true,
+                mediaType: "video",
+                mediaSource: "MP4.mp4"
+            },
+            {
+                title: "好听的音乐（真）",
+                category: "media",
+                link: "#",
+                isMedia: true,
+                mediaType: "audio",
+                mediaSource: "thank%20you%20for%20dears.mp3"
+            }
+        ];
+
+        // 模拟的HTML文件列表（用于主题切换彩蛋）
+        const htmlFiles = [
+            "special-effect-1.html",
+            "special-effect-2.html",
+            "special-effect-3.html",
+            "animation-demo.html",
+            "interactive-demo.html"
+        ];
+
         // 禁用开发者工具和检查功能
         function disableDevTools() {
             // 禁用F12、Ctrl+Shift+I、Ctrl+Shift+J、Ctrl+U
@@ -1249,11 +1536,39 @@
         // 页面加载时立即禁用开发者工具
         disableDevTools();
         
+        // 添加日志功能
+        function addLog(message, type = "info") {
+            const logContainer = document.getElementById('loaderLog');
+            if (!logContainer) return;
+            
+            const now = new Date();
+            const timeString = now.toTimeString().split(' ')[0];
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${type}`;
+            logEntry.innerHTML = `<span class="log-time">[${timeString}]</span> ${message}`;
+            
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
+            // 显示加载日志窗口
+            const loaderLog = document.getElementById('loaderLog');
+            if (loaderLog) {
+                loaderLog.style.display = 'block';
+            }
+            
+            // 模拟加载过程
+            setTimeout(() => addLog("INFO: 初始化系统..."), 100);
+            setTimeout(() => addLog("INFO: 加载资源数据..."), 500);
+            setTimeout(() => addLog("INFO: 设置安全防护..."), 900);
+            setTimeout(() => addLog("INFO: 准备用户界面..."), 1200);
+            setTimeout(() => addLog("SUCCESS: 系统准备就绪"), 1500);
+            
             // 页面加载完成后隐藏加载动画
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
-            }, 1000);
+            }, 2000);
             
             // 动态更新时间函数
             function updateDateTime() {
@@ -1378,6 +1693,9 @@
                     }
                 });
                 
+                // 同时筛选表格视图
+                filterTableView(searchTerm);
+                
                 if (hasResults) {
                     noResults.style.display = 'none';
                 } else {
@@ -1467,6 +1785,10 @@
                 themeToggle.textContent = '☀️';
             }
             
+            // 主题切换计数（用于彩蛋）
+            let themeSwitchCount = 0;
+            let lastThemeSwitchTime = 0;
+            
             themeToggle.addEventListener('click', function() {
                 document.body.classList.toggle('light-mode');
                 if (document.body.classList.contains('light-mode')) {
@@ -1476,6 +1798,26 @@
                     localStorage.setItem('theme', 'dark');
                     themeToggle.textContent = '🌙';
                 }
+                
+                // 检查是否触发主题切换彩蛋
+                const currentTime = new Date().getTime();
+                if (currentTime - lastThemeSwitchTime < 1000) {
+                    themeSwitchCount++;
+                    
+                    if (themeSwitchCount >= 5) {
+                        triggerThemeEasterEgg();
+                    }
+                } else {
+                    themeSwitchCount = 1;
+                }
+                
+                lastThemeSwitchTime = currentTime;
+                
+                // 5秒后重置计数
+                clearTimeout(window.themeResetTimer);
+                window.themeResetTimer = setTimeout(() => {
+                    themeSwitchCount = 0;
+                }, 5000);
             });
             
             // 2. 分类筛选功能
@@ -1498,6 +1840,9 @@
                             item.style.display = 'none';
                         }
                     });
+                    
+                    // 同时筛选表格视图
+                    filterTableViewByCategory(category);
                 });
             });
             
@@ -1573,7 +1918,176 @@
             // 初始化统计
             updateStats();
             
-            // 6. 彩蛋功能 - 修改为播放视频
+            // 6. 视图切换功能
+            const listViewBtn = document.getElementById('listViewBtn');
+            const tableViewBtn = document.getElementById('tableViewBtn');
+            const resourceTable = document.getElementById('resourceTable');
+            const tableBody = resourceTable.querySelector('tbody');
+            
+            // 初始化表格数据
+            function initTableData() {
+                tableBody.innerHTML = '';
+                
+                resourcesData.forEach(resource => {
+                    const row = document.createElement('tr');
+                    
+                    // 资源名称
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = resource.title;
+                    row.appendChild(nameCell);
+                    
+                    // 类别
+                    const categoryCell = document.createElement('td');
+                    categoryCell.textContent = getCategoryName(resource.category);
+                    row.appendChild(categoryCell);
+                    
+                    // 链接
+                    const linkCell = document.createElement('td');
+                    const link = document.createElement('a');
+                    link.href = resource.link;
+                    link.textContent = resource.link;
+                    link.className = 'table-link';
+                    link.target = '_blank';
+                    linkCell.appendChild(link);
+                    row.appendChild(linkCell);
+                    
+                    // 操作
+                    const actionCell = document.createElement('td');
+                    const favButton = document.createElement('button');
+                    favButton.className = 'favorite-btn';
+                    favButton.textContent = '☆';
+                    
+                    // 检查是否已收藏
+                    if (favorites[resource.title]) {
+                        favButton.classList.add('active');
+                        favButton.textContent = '★';
+                    }
+                    
+                    favButton.addEventListener('click', function() {
+                        this.classList.toggle('active');
+                        
+                        if (this.classList.contains('active')) {
+                            this.textContent = '★';
+                            favorites[resource.title] = true;
+                        } else {
+                            this.textContent = '☆';
+                            delete favorites[resource.title];
+                        }
+                        
+                        // 同步更新列表视图中的收藏状态
+                        syncFavoritesState();
+                        
+                        // 保存到本地存储
+                        localStorage.setItem('favorites', JSON.stringify(favorites));
+                        
+                        // 更新收藏统计
+                        updateStats();
+                    });
+                    
+                    actionCell.appendChild(favButton);
+                    row.appendChild(actionCell);
+                    
+                    tableBody.appendChild(row);
+                });
+            }
+            
+            // 同步收藏状态
+            function syncFavoritesState() {
+                const favButtons = document.querySelectorAll('.favorite-btn');
+                favButtons.forEach(button => {
+                    const resourceItem = button.closest('.resource-item');
+                    if (!resourceItem) return;
+                    
+                    const resourceTitle = resourceItem.querySelector('.resource-title').textContent.trim();
+                    
+                    if (favorites[resourceTitle]) {
+                        button.classList.add('active');
+                        button.textContent = '★';
+                    } else {
+                        button.classList.remove('active');
+                        button.textContent = '☆';
+                    }
+                });
+            }
+            
+            // 获取类别名称
+            function getCategoryName(category) {
+                const categoryMap = {
+                    'tool': '工具',
+                    'game': '游戏',
+                    'media': '媒体',
+                    'other': '其他'
+                };
+                
+                return categoryMap[category] || category;
+            }
+            
+            // 表格视图筛选
+            function filterTableView(searchTerm) {
+                const rows = tableBody.querySelectorAll('tr');
+                let hasResults = false;
+                
+                rows.forEach(row => {
+                    const name = row.cells[0].textContent.toLowerCase();
+                    const category = row.cells[1].textContent.toLowerCase();
+                    const link = row.cells[2].textContent.toLowerCase();
+                    
+                    if (name.includes(searchTerm) || category.includes(searchTerm) || link.includes(searchTerm)) {
+                        row.style.display = '';
+                        hasResults = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+                
+                if (!hasResults && searchTerm) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            }
+            
+            // 按类别筛选表格
+            function filterTableViewByCategory(category) {
+                const rows = tableBody.querySelectorAll('tr');
+                
+                if (category === 'all') {
+                    rows.forEach(row => {
+                        row.style.display = '';
+                    });
+                    return;
+                }
+                
+                const categoryName = getCategoryName(category);
+                
+                rows.forEach(row => {
+                    if (row.cells[1].textContent === categoryName) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+            
+            // 初始化表格数据
+            initTableData();
+            
+            // 视图切换按钮事件
+            listViewBtn.addEventListener('click', function() {
+                listViewBtn.classList.add('active');
+                tableViewBtn.classList.remove('active');
+                resourcesList.style.display = 'block';
+                resourceTable.style.display = 'none';
+            });
+            
+            tableViewBtn.addEventListener('click', function() {
+                tableViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+                resourcesList.style.display = 'none';
+                resourceTable.style.display = 'table';
+            });
+            
+            // 7. 彩蛋功能 - 修改为播放视频
             const logo = document.getElementById('logo');
             const easterEgg = document.getElementById('easterEgg');
             const easterEggVideo = document.getElementById('easterEggVideo');
@@ -1644,6 +2158,34 @@
                     
                     showNextMessage();
                 });
+            }
+            
+            // 主题切换彩蛋功能
+            function triggerThemeEasterEgg() {
+                // 随机选择一个HTML文件
+                const randomIndex = Math.floor(Math.random() * htmlFiles.length);
+                const randomHtmlFile = htmlFiles[randomIndex];
+                
+                // 创建iframe来加载HTML文件
+                const iframe = document.createElement('iframe');
+                iframe.src = `html/${randomHtmlFile}`;
+                iframe.style.position = 'fixed';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+                iframe.style.zIndex = '10000';
+                iframe.style.background = '#fff';
+                
+                document.body.appendChild(iframe);
+                
+                // 10秒后移除iframe
+                setTimeout(() => {
+                    if (document.body.contains(iframe)) {
+                        document.body.removeChild(iframe);
+                    }
+                }, 10000);
             }
             
             // 监听logo点击事件
