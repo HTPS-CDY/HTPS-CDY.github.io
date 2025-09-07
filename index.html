@@ -467,6 +467,7 @@
             flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
         
         .category-btn {
@@ -536,6 +537,36 @@
         
         body.light-mode .theme-toggle {
             background: rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 语言切换按钮 */
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.3);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .language-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        body.light-mode .language-toggle {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
         }
         
         /* 加载动画 */
@@ -862,11 +893,13 @@
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f8f9fa; /* 修复深色模式表格字体颜色 */
         }
         
         body.light-mode .resource-table th, 
         body.light-mode .resource-table td {
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            color: #2d3748; /* 浅色模式表格字体颜色 */
         }
         
         .resource-table th {
@@ -1012,6 +1045,13 @@
                 height: 40px;
             }
             
+            .language-toggle {
+                top: 10px;
+                left: 10px;
+                width: 40px;
+                height: 40px;
+            }
+            
             .back-to-top {
                 bottom: 20px;
                 right: 20px;
@@ -1132,6 +1172,9 @@
     
     <div class="overlay"></div>
     
+    <!-- 语言切换按钮 -->
+    <button class="language-toggle" id="languageToggle">EN</button>
+    
     <!-- 主题切换按钮 -->
     <button class="theme-toggle" id="themeToggle">🌙</button>
     
@@ -1142,38 +1185,38 @@
     <div class="modal" id="douyinModal">
         <div class="modal-content">
             <span class="modal-close" id="modalClose">&times;</span>
-            <h3 class="modal-title">关注我们的抖音</h3>
+            <h3 class="modal-title" data-lang-key="followDouyin">关注我们的抖音</h3>
             <img src="douyin.png" alt="抖音二维码" class="douyin-qrcode">
-            <p class="modal-text">打开抖音扫码关注：HTPS-YAN-C.D.Y</p>
+            <p class="modal-text" data-lang-key="scanToFollow">打开抖音扫码关注：HTPS-YAN-C.D.Y</p>
         </div>
     </div>
     
     <div class="container">
         <div class="header">
             <!-- Logo -->
-            <img src="HTPS logo.png" alt="HTPS Logo" class="centered-image" id="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkhUUFMgTE9HTzwvdGV4dD48L3N2Zz4='">
-            <h1>HTPS 资源分享站</h1>
-            <h2>开发者: HTPS--C.D.Y</h2>
+            <img src="HTPS logo.png" alt="HTPS Logo" class="centered-image" id="logo" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3c.w3cub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkhUUFMgTE9HTzwvdGV4dD48L3N2Zz4='">
+            <h1 data-lang-key="siteTitle">HTPS 资源分享站</h1>
+            <h2 data-lang-key="developer">开发者: HTPS--C.D.Y</h2>
             
             <!-- 开发者名单 -->
             <div class="developers">
-                <h3>开发团队</h3>
+                <h3 data-lang-key="devTeam">开发团队</h3>
                 <div class="developer-names">htps-yan-c.d.y、芒果Ca</div>
             </div>
             
-            <h3>使用GitHub\Netlify静态部署</h3>
+            <h3 data-lang-key="techInfo">使用GitHub\Netlify静态部署</h3>
             
             <!-- 抖音区域 -->
             <div class="douyin-area">
                 <button class="douyin-btn" id="douyinBtn">
                     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJMNDY3LjgsMTA1LjJjLTEwLjQtOC4zLTI0LjQtOC4zLTM0LjgsMEwzNTIsMTU2LjVWMTA0YzAtMjIuMS0xNy45LTQwLTQwLTQwSDIwMGMtMjIuMSwwLTQwLDE3LjktNDAsNDB2NTJjMCwyMi4xLDE3LjksNDAsNDAsNDBoMTEyYzIyLjEsMCw0MC0xNy45LDQwLTQwVjE1Ni41bC04MS01MS4zYy0xMC40LTguMy0yNC40LTguMy0zNC44LDBsLTgxLDUxLjNjLTEwLjQsOC4zLTE2LjgsMjEuMi0xNi44LDM0Ljh2NTAuOWMwLDIyLjEsMTcuOSw0MCw0MCw0MGgxMTJjMjIuMSwwLDQwLTE3LjksNDAtNDB2LTUwLjljMC0xMy42LTYuNC0yNi41LTE2LjgtMzQuOFoiLz48L3N2Zz4=" alt="抖音图标" class="douyin-icon">
-                    抖音：HTPS-YAN-C.D.Y
+                    <span data-lang-key="douyinAccount">抖音：HTPS-YAN-C.D.Y</span>
                 </button>
             </div>
             
             <!-- 滚动横幅 -->
             <div class="marquee-banner">
-                <h6 class="marquee-content">|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|</h6>
+                <h6 class="marquee-content" data-lang-key="marqueeText">|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|</h6>
             </div>
         </div>
         
@@ -1181,44 +1224,44 @@
         <div class="resource-stats" id="resourceStats">
             <div class="stat-item">
                 <div class="stat-number" id="totalResources">0</div>
-                <div class="stat-label">总资源数</div>
+                <div class="stat-label" data-lang-key="totalResources">总资源数</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="favoriteCount">0</div>
-                <div class="stat-label">收藏数</div>
+                <div class="stat-label" data-lang-key="favorites">收藏数</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="visitedCount">0</div>
-                <div class="stat-label">访问次数</div>
+                <div class="stat-label" data-lang-key="visits">访问次数</div>
             </div>
         </div>
         
         <!-- 搜索框 -->
         <div class="search-container">
             <div class="search-icon">🔍</div>
-            <input type="text" id="searchInput" class="search-box" placeholder="输入关键词搜索资源...">
+            <input type="text" id="searchInput" class="search-box" placeholder="输入关键词搜索资源..." data-lang-key="searchPlaceholder">
         </div>
         
         <!-- 分类筛选 -->
         <div class="category-filter" id="categoryFilter">
-            <button class="category-btn active" data-category="all">全部</button>
-            <button class="category-btn" data-category="game">游戏</button>
-            <button class="category-btn" data-category="tool">工具</button>
-            <button class="category-btn" data-category="media">媒体</button>
-            <button class="category-btn" data-category="other">其他</button>
+            <button class="category-btn active" data-category="all" data-lang-key="allCategories">全部</button>
+            <button class="category-btn" data-category="game" data-lang-key="games">游戏</button>
+            <button class="category-btn" data-category="tool" data-lang-key="tools">工具</button>
+            <button class="category-btn" data-category="media" data-lang-key="media">媒体</button>
+            <button class="category-btn" data-category="other" data-lang-key="other">其他</button>
         </div>
         
         <div class="content">
-            <h3>本站声明</h3>
+            <h3 data-lang-key="siteStatement">本站声明</h3>
             <ul class="resource-list">
                 <li class="resource-item">
-                    <div class="resource-title">本站上所有资源均为免费提供，请勿用于商业用途</div>
+                    <div class="resource-title" data-lang-key="statement1">本站上所有资源均为免费提供，请勿用于商业用途</div>
                 </li>
                 <li class="resource-item">
-                    <div class="resource-title">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
+                    <div class="resource-title" data-lang-key="statement2">本站上所有分享均为他站搬运，如有侵权，私信联系删除</div>
                 </li>
                 <li class="resource-item">
-                    <div class="resource-title">最后更新: 2025.9.4-5:20 pm</div>
+                    <div class="resource-title" data-lang-key="lastUpdated">最后更新: 2025.9.7-11:02 am</div>
                 </li>
             </ul>
             
@@ -1227,98 +1270,98 @@
             <!-- 视图切换 -->
             <div class="view-toggle">
                 <button class="view-btn active" id="listViewBtn">
-                    <span>📋</span> 列表视图
+                    <span>📋</span> <span data-lang-key="listView">列表视图</span>
                 </button>
                 <button class="view-btn" id="tableViewBtn">
-                    <span>📊</span> 表格视图
+                    <span>📊</span> <span data-lang-key="tableView">表格视图</span>
                 </button>
             </div>
             
-            <h3>资源列表</h3>
-            <div class="no-results" id="noResults">没有找到匹配的资源</div>
+            <h3 data-lang-key="resourceList">资源列表</h3>
+            <div class="no-results" id="noResults" data-lang-key="noResults">没有找到匹配的资源</div>
             
             <!-- 列表视图 -->
             <ul class="resource-list" id="resourcesList">
                 <li class="resource-item" data-category="tool">
                     <div class="resource-title">
-                        PCL下载（分享）
+                        <span data-lang-key="pclShared">PCL下载（分享）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://www.123912.com/s/LLB2Td-WGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-WGkg3</a>
                 </li>
                 <li class="resource-item" data-category="tool">
                     <div class="resource-title">
-                        PCL下载（官方）
+                        <span data-lang-key="pclOfficial">PCL下载（官方）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://bbsmc.net/software/pcl" class="resource-link" target="_blank">https://bbsmc.net/software/pcl</a>
                 </li>
                 <li class="resource-item" data-category="tool">
                     <div class="resource-title">
-                        FCL下载（分享）
+                        <span data-lang-key="fclShared">FCL下载（分享）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://www.123912.com/s/LLB2Td-CGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-CGkg3</a>
                 </li>
                 <li class="resource-item" data-category="tool">
                     <div class="resource-title">
-                        FCL下载（官方）
+                        <span data-lang-key="fclOfficial">FCL下载（官方）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://foldcraftlauncher.cn/?tab=1" class="resource-link" target="_blank">https://foldcraftlauncher.cn/?tab=1</a>
                 </li>
                 <li class="resource-item" data-category="game">
                     <div class="resource-title">
-                        yanderesimulator下载（官方）
+                        <span data-lang-key="yandereOfficial">yanderesimulator下载（官方）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://yanderesimulator.com/download/" class="resource-link" target="_blank">https://yanderesimulator.com/download/</a>
                 </li>
                 <li class="resource-item" data-category="game">
                     <div class="resource-title">
-                        yanderesimulator posemod（分享）
+                        <span data-lang-key="yanderePose">yanderesimulator posemod（分享）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://www.123912.com/s/LLB2Td-NGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-NGkg3</a>
                 </li>
                 <li class="resource-item" data-category="game">
                     <div class="resource-title">
-                        爱之恸汉化包（分享）
+                        <span data-lang-key="aiTong">爱之恸汉化包（分享）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://www.123912.com/s/LLB2Td-OGkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-OGkg3</a>
                 </li>
                  <li class="resource-item" data-category="game">
                     <div class="resource-title">
-                        生存战争（分享）
+                        <span data-lang-key="survivalCraft">生存战争（分享）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://www.123912.com/s/LLB2Td-QXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-QXkg3</a>
                 </li>
                  <li class="resource-item" data-category="game">
                     <div class="resource-title">
-                        西奥小镇（分享）
+                        <span data-lang-key="theoTown">西奥小镇（分享）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://www.123912.com/s/LLB2Td-EXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-EXkg3</a>
                 </li>
                 <li class="resource-item" data-category="game">
                     <div class="resource-title">
-                        航天模拟器PC（分享）
+                        <span data-lang-key="spaceflight">航天模拟器PC（分享）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://www.123912.com/s/LLB2Td-kXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-kXkg3</a>
                 </li>
                 <li class="resource-item" data-category="tool">
                     <div class="resource-title">
-                        HMCL（官方）
+                        <span data-lang-key="hmclOfficial">HMCL（官方）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://hmcl.huangyuhui.net/download/" class="resource-link" target="_blank">https://hmcl.huangyuhui.net/download/</a>
                 </li>
                 <li class="resource-item" data-category="tool">
                     <div class="resource-title">
-                        HMCL（分享）
+                        <span data-lang-key="hmclShared">HMCL（分享）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
                     <a href="https://www.123912.com/s/LLB2Td-oXkg3" class="resource-link" target="_blank">https://www.123912.com/s/LLB2Td-oXkg3</a>
@@ -1327,19 +1370,20 @@
                 <!-- 新增的视频资源入口 -->
                 <li class="resource-item" data-category="media">
                     <div class="resource-title">
-                        <span class="media-icon">🎬</span>好看的视频
+                        <span class="media-icon">🎬</span>
+                        <span data-lang-key="goodVideo">好看的视频</span>
                         <button class="favorite-btn">☆</button>
                     </div>
-                    <a href="#" class="resource-link" id="videoLink">点击播放视频</a>
+                    <a href="#" class="resource-link" id="videoLink" data-lang-key="clickToPlay">点击播放视频</a>
                     <div class="media-player-container" id="videoPlayerContainer">
                         <video class="media-player" id="videoPlayer" controls>
                             <source src="MP4.mp4" type="video/mp4">
-                            您的浏览器不支持视频播放。
+                            <span data-lang-key="videoNotSupported">您的浏览器不支持视频播放。</span>
                         </video>
                         <div class="player-controls">
-                            <button class="player-btn" id="playVideoBtn">▶️ 播放</button>
-                            <button class="player-btn" id="pauseVideoBtn">⏸️ 暂停</button>
-                            <button class="player-btn" id="fullscreenVideoBtn">⛶ 全屏</button>
+                            <button class="player-btn" id="playVideoBtn">▶️ <span data-lang-key="play">播放</span></button>
+                            <button class="player-btn" id="pauseVideoBtn">⏸️ <span data-lang-key="pause">暂停</span></button>
+                            <button class="player-btn" id="fullscreenVideoBtn">⛶ <span data-lang-key="fullscreen">全屏</span></button>
                         </div>
                     </div>
                 </li>
@@ -1347,18 +1391,19 @@
                 <!-- 新增的音频资源入口 -->
                 <li class="resource-item" data-category="media">
                     <div class="resource-title">
-                        <span class="media-icon">🎵</span>好听的音乐（真）
+                        <span class="media-icon">🎵</span>
+                        <span data-lang-key="goodMusic">好听的音乐（真）</span>
                         <button class="favorite-btn">☆</button>
                     </div>
-                    <a href="#" class="resource-link" id="audioLink">点击播放音乐</a>
+                    <a href="#" class="resource-link" id="audioLink" data-lang-key="clickToPlay">点击播放音乐</a>
                     <div class="media-player-container" id="audioPlayerContainer">
                         <audio class="media-player" id="audioPlayer" controls>
                             <source src="thank%20you%20for%20dears.mp3" type="audio/mpeg">
-                            您的浏览器不支持音频播放。
+                            <span data-lang-key="audioNotSupported">您的浏览器不支持音频播放。</span>
                         </audio>
                         <div class="player-controls">
-                            <button class="player-btn" id="playAudioBtn">▶️ 播放</button>
-                            <button class="player-btn" id="pauseAudioBtn">⏸️ 暂停</button>
+                            <button class="player-btn" id="playAudioBtn">▶️ <span data-lang-key="play">播放</span></button>
+                            <button class="player-btn" id="pauseAudioBtn">⏸️ <span data-lang-key="pause">暂停</span></button>
                         </div>
                     </div>
                 </li>
@@ -1368,10 +1413,10 @@
             <table class="resource-table" id="resourceTable">
                 <thead>
                     <tr>
-                        <th>资源名称</th>
-                        <th>类别</th>
-                        <th>链接</th>
-                        <th>操作</th>
+                        <th data-lang-key="resourceName">资源名称</th>
+                        <th data-lang-key="category">类别</th>
+                        <th data-lang-key="link">链接</th>
+                        <th data-lang-key="actions">操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1382,89 +1427,213 @@
             <div class="divider"></div>
             
             <!-- 公告栏 -->
-            <div class="announcement">
-                <h4>更新公告</h4>
-                <p>1. 新增开发者名单展示，感谢芒果Ca的贡献</p>
-                <p>2. 优化了网站安全性，禁用了F12开发者工具和页面检查功能</p>
-                <p>3. 时间显示改为实时动态更新</p>
-                <p>4. 修复了部分资源链接显示问题</p>
-                <p>5. 新增表格视图，可切换列表/表格显示方式</p>
-                <p>6. 优化图片加载和彩蛋视频播放体验</p>
-            </div>
+  <div class="announcement">
+    <h4 data-lang-key="updateNotice">更新公告</h4>
+    <p data-lang-key="update1">1. 更新最后更新日期为2025年9月7日上午11:02</p>
+    <p data-lang-key="update2">2. 修复深色模式表格视图项目名称区域字体颜色问题</p>
+    <p data-lang-key="update3">3. 修改主题切换彩蛋功能：连续切换主题5次后，将随机打开程序目录/html中的HTML文件，使用Ctrl+Shift+空格返回原网页</p>
+    <p data-lang-key="update4">4. 添加英文界面，切换键放在左上角</p>
+    <p data-lang-key="update5">5. 优化多语言支持，所有文本内容均可中英文切换</p>
+  </div>
             
             <div class="date-display" id="dateDisplay"></div>
         </div>
         
         <div class="footer">
-            HTPS &copy; 2025 | 资源免费分享平台
+            HTPS &copy; 2025 | <span data-lang-key="footerText">资源免费分享平台</span>
         </div>
     </div>
 
     <script>
+        // 多语言支持
+        const translations = {
+            'zh-CN': {
+                'siteTitle': 'HTPS 资源分享站',
+                'developer': '开发者: HTPS--C.D.Y',
+                'devTeam': '开发团队',
+                'techInfo': '使用GitHub\\Netlify静态部署',
+                'douyinAccount': '抖音：HTPS-YAN-C.D.Y',
+                'marqueeText': '|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|--金沙滩寄宿制小学招生--|',
+                'totalResources': '总资源数',
+                'favorites': '收藏数',
+                'visits': '访问次数',
+                'searchPlaceholder': '输入关键词搜索资源...',
+                'allCategories': '全部',
+                'games': '游戏',
+                'tools': '工具',
+                'media': '媒体',
+                'other': '其他',
+                'siteStatement': '本站声明',
+                'statement1': '本站上所有资源均为免费提供，请勿用于商业用途',
+                'statement2': '本站上所有分享均为他站搬运，如有侵权，私信联系删除',
+                'lastUpdated': '最后更新: 2025.9.7-11:02 am',
+                'listView': '列表视图',
+                'tableView': '表格视图',
+                'resourceList': '资源列表',
+                'noResults': '没有找到匹配的资源',
+                'pclShared': 'PCL下载（分享）',
+                'pclOfficial': 'PCL下载（官方）',
+                'fclShared': 'FCL下载（分享）',
+                'fclOfficial': 'FCL下载（官方）',
+                'yandereOfficial': 'yanderesimulator下载（官方）',
+                'yanderePose': 'yanderesimulator posemod（分享）',
+                'aiTong': '爱之恸汉化包（分享）',
+                'survivalCraft': '生存战争（分享）',
+                'theoTown': '西奥小镇（分享）',
+                'spaceflight': '航天模拟器PC（分享）',
+                'hmclOfficial': 'HMCL（官方）',
+                'hmclShared': 'HMCL（分享）',
+                'goodVideo': '好看的视频',
+                'goodMusic': '好听的音乐（真）',
+                'clickToPlay': '点击播放',
+                'videoNotSupported': '您的浏览器不支持视频播放。',
+                'audioNotSupported': '您的浏览器不支持音频播放。',
+                'play': '播放',
+                'pause': '暂停',
+                'fullscreen': '全屏',
+                'resourceName': '资源名称',
+                'category': '类别',
+                'link': '链接',
+                'actions': '操作',
+                'update1': '1. 更新最后更新日期为2025年9月7日上午11:02',
+                'update2': '2. 修复深色模式表格视图项目名称区域字体颜色问题',
+                'update3': '3. 修改主题切换彩蛋功能：连续切换主题5次后，将随机打开程序目录/html中的HTML文件，使用Ctrl+Shift+空格返回原网页',
+                'update4': '4. 添加英文界面，切换键放在左上角',
+                'update5': '5. 优化多语言支持，所有文本内容均可中英文切换'
+            },
+            'en-US': {
+                'siteTitle': 'HTPS Resource Sharing',
+                'developer': 'Developer: HTPS--C.D.Y',
+                'devTeam': 'Development Team',
+                'techInfo': 'Using GitHub\\Netlify Static Deployment',
+                'douyinAccount': 'Douyin: HTPS-YAN-C.D.Y',
+                'marqueeText': '|--Jinshatan Boarding Primary School Enrollment--|--Jinshatan Boarding Primary School Enrollment--|--Jinshatan Boarding Primary School Enrollment--|--Jinshatan Boarding Primary School Enrollment--|',
+                'totalResources': 'Total Resources',
+                'favorites': 'Favorites',
+                'visits': 'Visits',
+                'searchPlaceholder': 'Enter keywords to search resources...',
+                'allCategories': 'All',
+                'games': 'Games',
+                'tools': 'Tools',
+                'media': 'Media',
+                'other': 'Other',
+                'siteStatement': 'Site Statement',
+                'statement1': 'All resources on this site are provided for free, please do not use for commercial purposes',
+                'statement2': 'All shares on this site are reposted from other sites, if there is any infringement, please contact us to delete',
+                'lastUpdated': 'Last Updated: 2025.9.7-11:02 am',
+                'listView': 'List View',
+                'tableView': 'Table View',
+                'resourceList': 'Resource List',
+                'noResults': 'No matching resources found',
+                'pclShared': 'PCL Download (Shared)',
+                'pclOfficial': 'PCL Download (Official)',
+                'fclShared': 'FCL Download (Shared)',
+                'fclOfficial': 'FCL Download (Official)',
+                'yandereOfficial': 'yanderesimulator Download (Official)',
+                'yanderePose': 'yanderesimulator Posemod (Shared)',
+                'aiTong': 'Ai no Tō Chinese Patch (Shared)',
+                'survivalCraft': 'Survivalcraft (Shared)',
+                'theoTown': 'TheoTown (Shared)',
+                'spaceflight': 'Spaceflight Simulator PC (Shared)',
+                'hmclOfficial': 'HMCL (Official)',
+                'hmclShared': 'HMCL (Shared)',
+                'goodVideo': 'Good Video',
+                'goodMusic': 'Good Music (Real)',
+                'clickToPlay': 'Click to Play',
+                'videoNotSupported': 'Your browser does not support video playback.',
+                'audioNotSupported': 'Your browser does not support audio playback.',
+                'play': 'Play',
+                'pause': 'Pause',
+                'fullscreen': 'Fullscreen',
+                'resourceName': 'Resource Name',
+                'category': 'Category',
+                'link': 'Link',
+                'actions': 'Actions',
+                'update1': '1. Updated the last update date to September 7, 2025, 11:02 AM',
+                'update2': '2. Fixed the font color issue in the dark mode table view for item names',
+                'update3': '3. Modified the theme toggle easter egg: after switching themes 5 times consecutively, it will randomly open an HTML file in the html/ directory, use Ctrl+Shift+Space to return',
+                'update4': '4. Added English interface, toggle button placed in the upper left corner',
+                'update5': '5. Optimized multi-language support, all text content can be switched between Chinese and English'
+            }
+        };
+
         // 资源数据
         const resourcesData = [
             {
                 title: "PCL下载（分享）",
+                titleEn: "PCL Download (Shared)",
                 category: "tool",
                 link: "https://www.123912.com/s/LLB2Td-WGkg3"
             },
             {
                 title: "PCL下载（官方）",
+                titleEn: "PCL Download (Official)",
                 category: "tool",
                 link: "https://bbsmc.net/software/pcl"
             },
             {
                 title: "FCL下载（分享）",
+                titleEn: "FCL Download (Shared)",
                 category: "tool",
                 link: "https://www.123912.com/s/LLB2Td-CGkg3"
             },
             {
                 title: "FCL下载（官方）",
+                titleEn: "FCL Download (Official)",
                 category: "tool",
                 link: "https://foldcraftlauncher.cn/?tab=1"
             },
             {
                 title: "yanderesimulator下载（官方）",
+                titleEn: "yanderesimulator Download (Official)",
                 category: "game",
                 link: "https://yanderesimulator.com/download/"
             },
             {
                 title: "yanderesimulator posemod（分享）",
+                titleEn: "yanderesimulator Posemod (Shared)",
                 category: "game",
                 link: "https://www.123912.com/s/LLB2Td-NGkg3"
             },
             {
                 title: "爱之恸汉化包（分享）",
+                titleEn: "Ai no Tō Chinese Patch (Shared)",
                 category: "game",
                 link: "https://www.123912.com/s/LLB2Td-OGkg3"
             },
             {
                 title: "生存战争（分享）",
+                titleEn: "Survivalcraft (Shared)",
                 category: "game",
                 link: "https://www.123912.com/s/LLB2Td-QXkg3"
             },
             {
                 title: "西奥小镇（分享）",
+                titleEn: "TheoTown (Shared)",
                 category: "game",
                 link: "https://www.123912.com/s/LLB2Td-EXkg3"
             },
             {
                 title: "航天模拟器PC（分享）",
+                titleEn: "Spaceflight Simulator PC (Shared)",
                 category: "game",
                 link: "https://www.123912.com/s/LLB2Td-kXkg3"
             },
             {
                 title: "HMCL（官方）",
+                titleEn: "HMCL (Official)",
                 category: "tool",
                 link: "https://hmcl.huangyuhui.net/download/"
             },
             {
                 title: "HMCL（分享）",
+                titleEn: "HMCL (Shared)",
                 category: "tool",
                 link: "https://www.123912.com/s/LLB2Td-oXkg3"
             },
             {
                 title: "好看的视频",
+                titleEn: "Good Video",
                 category: "media",
                 link: "#",
                 isMedia: true,
@@ -1473,6 +1642,7 @@
             },
             {
                 title: "好听的音乐（真）",
+                titleEn: "Good Music (Real)",
                 category: "media",
                 link: "#",
                 isMedia: true,
@@ -1483,13 +1653,16 @@
 
         // 模拟的HTML文件列表（用于主题切换彩蛋）
         const htmlFiles = [
-            "special-effect-1.html",
-            "special-effect-2.html",
-            "special-effect-3.html",
-            "animation-demo.html",
-            "interactive-demo.html"
+            "1.html",
+            "2.html",
+            "3.html",
+            "4.html",
+            "5.html"
         ];
 
+        // 当前语言
+        let currentLanguage = 'zh-CN';
+        
         // 禁用开发者工具和检查功能
         function disableDevTools() {
             // 禁用F12、Ctrl+Shift+I、Ctrl+Shift+J、Ctrl+U
@@ -1551,7 +1724,45 @@
             logContainer.scrollTop = logContainer.scrollHeight;
         }
         
+        // 切换语言
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'zh-CN' ? 'en-US' : 'zh-CN';
+            localStorage.setItem('language', currentLanguage);
+            applyLanguage();
+            
+            // 更新按钮文本
+            document.getElementById('languageToggle').textContent = currentLanguage === 'zh-CN' ? 'EN' : '中文';
+        }
+        
+        // 应用语言设置
+        function applyLanguage() {
+            const elements = document.querySelectorAll('[data-lang-key]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-lang-key');
+                if (translations[currentLanguage][key]) {
+                    element.textContent = translations[currentLanguage][key];
+                    
+                    // 处理输入框的placeholder
+                    if (element.tagName === 'INPUT' && element.getAttribute('placeholder')) {
+                        element.setAttribute('placeholder', translations[currentLanguage][key]);
+                    }
+                }
+            });
+            
+            // 更新表格内容
+            if (document.getElementById('resourceTable').style.display === 'table') {
+                initTableData();
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
+            // 设置初始语言
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage && translations[savedLanguage]) {
+                currentLanguage = savedLanguage;
+            }
+            document.getElementById('languageToggle').textContent = currentLanguage === 'zh-CN' ? 'EN' : '中文';
+            
             // 显示加载日志窗口
             const loaderLog = document.getElementById('loaderLog');
             if (loaderLog) {
@@ -1559,16 +1770,21 @@
             }
             
             // 模拟加载过程
-            setTimeout(() => addLog("INFO: 初始化系统..."), 100);
-            setTimeout(() => addLog("INFO: 加载资源数据..."), 500);
-            setTimeout(() => addLog("INFO: 设置安全防护..."), 900);
-            setTimeout(() => addLog("INFO: 准备用户界面..."), 1200);
-            setTimeout(() => addLog("SUCCESS: 系统准备就绪"), 1500);
+            setTimeout(() => addLog("INFO: Initialise the system..."), 100);
+            setTimeout(() => addLog("INFO: Load resource data..."), 500);
+            setTimeout(() => addLog("INFO: Set up security protection..."), 900);
+            setTimeout(() => addLog("INFO: Prepare the user interface..."), 1200);
+            setTimeout(() => addLog("SUCCESS: The system is ready"), 1500);
             
             // 页面加载完成后隐藏加载动画
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
+                // 应用语言设置
+                applyLanguage();
             }, 2000);
+            
+            // 语言切换按钮事件
+            document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
             
             // 动态更新时间函数
             function updateDateTime() {
@@ -1582,7 +1798,11 @@
                 
                 // 在页面上显示日期和时间
                 const dateDisplay = document.getElementById('dateDisplay');
-                dateDisplay.textContent = `当前时间: ${year}.${month}.${date} ${hours}:${minutes}:${seconds}`;
+                if (currentLanguage === 'zh-CN') {
+                    dateDisplay.textContent = `当前时间: ${year}.${month}.${date} ${hours}:${minutes}:${seconds}`;
+                } else {
+                    dateDisplay.textContent = `Current Time: ${year}.${month}.${date} ${hours}:${minutes}:${seconds}`;
+                }
             }
             
             // 初始化时间显示
@@ -1644,7 +1864,9 @@
             if (month === 8 && date >= 1 && date <= 10) {
                 const anniversaryDiv = document.createElement('div');
                 anniversaryDiv.className = 'anniversary';
-                anniversaryDiv.textContent = '🎉 HTPS very good，欢迎投稿新资源😁👍！';
+                anniversaryDiv.textContent = currentLanguage === 'zh-CN' ? 
+                    '🎉 HTPS very good，欢迎投稿新资源😁👍！' : 
+                    '🎉 HTPS very good, welcome to contribute new resources 😁👍!';
                 
                 // 在标题之后插入
                 const header = document.querySelector('.header');
@@ -1806,6 +2028,7 @@
                     
                     if (themeSwitchCount >= 5) {
                         triggerThemeEasterEgg();
+                        themeSwitchCount = 0;
                     }
                 } else {
                     themeSwitchCount = 1;
@@ -1933,7 +2156,7 @@
                     
                     // 资源名称
                     const nameCell = document.createElement('td');
-                    nameCell.textContent = resource.title;
+                    nameCell.textContent = currentLanguage === 'zh-CN' ? resource.title : resource.titleEn;
                     row.appendChild(nameCell);
                     
                     // 类别
@@ -1958,7 +2181,8 @@
                     favButton.textContent = '☆';
                     
                     // 检查是否已收藏
-                    if (favorites[resource.title]) {
+                    const resourceTitle = currentLanguage === 'zh-CN' ? resource.title : resource.titleEn;
+                    if (favorites[resourceTitle]) {
                         favButton.classList.add('active');
                         favButton.textContent = '★';
                     }
@@ -1968,10 +2192,10 @@
                         
                         if (this.classList.contains('active')) {
                             this.textContent = '★';
-                            favorites[resource.title] = true;
+                            favorites[resourceTitle] = true;
                         } else {
                             this.textContent = '☆';
-                            delete favorites[resource.title];
+                            delete favorites[resourceTitle];
                         }
                         
                         // 同步更新列表视图中的收藏状态
@@ -2013,10 +2237,10 @@
             // 获取类别名称
             function getCategoryName(category) {
                 const categoryMap = {
-                    'tool': '工具',
-                    'game': '游戏',
-                    'media': '媒体',
-                    'other': '其他'
+                    'tool': currentLanguage === 'zh-CN' ? '工具' : 'Tools',
+                    'game': currentLanguage === 'zh-CN' ? '游戏' : 'Games',
+                    'media': currentLanguage === 'zh-CN' ? '媒体' : 'Media',
+                    'other': currentLanguage === 'zh-CN' ? '其他' : 'Other'
                 };
                 
                 return categoryMap[category] || category;
@@ -2106,6 +2330,7 @@
                 document.querySelector('.overlay').style.display = 'none';
                 document.querySelector('.theme-toggle').style.display = 'none';
                 document.querySelector('.back-to-top').style.display = 'none';
+                document.querySelector('.language-toggle').style.display = 'none';
                 
                 // 显示彩蛋
                 easterEgg.style.display = 'flex';
@@ -2135,11 +2360,9 @@
                     eggText.style.display = 'block';
                     
                     // 显示文字序列
-                    const messages = [
-                        "NO",
-                        "NO",
-                        "NO",
-                    ];
+                    const messages = currentLanguage === 'zh-CN' ? 
+                        ["NO", "NO", "NO"] : 
+                        ["NO", "NO", "NO"];
                     
                     let index = 0;
                     
@@ -2180,12 +2403,19 @@
                 
                 document.body.appendChild(iframe);
                 
-                // 10秒后移除iframe
-                setTimeout(() => {
-                    if (document.body.contains(iframe)) {
-                        document.body.removeChild(iframe);
+                // 添加键盘事件监听器，用于返回
+                function handleEasterEggKeydown(e) {
+                    if (e.ctrlKey && e.shiftKey && e.code === 'Space') {
+                        // 移除iframe
+                        if (document.body.contains(iframe)) {
+                            document.body.removeChild(iframe);
+                        }
+                        // 移除事件监听器
+                        document.removeEventListener('keydown', handleEasterEggKeydown);
                     }
-                }, 10000);
+                }
+                
+                document.addEventListener('keydown', handleEasterEggKeydown);
             }
             
             // 监听logo点击事件
